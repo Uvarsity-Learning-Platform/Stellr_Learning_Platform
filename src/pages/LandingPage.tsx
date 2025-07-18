@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, Award, Users, Play } from 'lucide-react';
+import { ArrowRight, BookOpen, Award, Users, Play, Menu, X } from 'lucide-react';
 
 const LandingPage: React.FC = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
@@ -10,14 +12,30 @@ const LandingPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">U</span>
-              </div>
-              <span className="ml-2 text-xl font-bold text-gray-900">
-                Uvarsity
-              </span>
+              <Link to="/" className="flex items-center">
+                <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-sm">U</span>
+                </div>
+                <span className="ml-2 text-xl font-bold text-gray-900">
+                  Uvarsity
+                </span>
+              </Link>
             </div>
-            <div className="flex items-center space-x-4">
+            <nav className="hidden md:flex items-center space-x-8">
+              <Link to="/" className="text-primary-600 font-medium">
+                Home
+              </Link>
+              <Link to="/courses" className="text-gray-600 hover:text-gray-900 font-medium">
+                Courses
+              </Link>
+              <Link to="/about" className="text-gray-600 hover:text-gray-900 font-medium">
+                About
+              </Link>
+              <Link to="/contact" className="text-gray-600 hover:text-gray-900 font-medium">
+                Contact
+              </Link>
+            </nav>
+            <div className="hidden md:flex items-center space-x-4">
               <Link
                 to="/auth/login"
                 className="text-gray-600 hover:text-gray-900 font-medium"
@@ -31,7 +49,67 @@ const LandingPage: React.FC = () => {
                 Get Started
               </Link>
             </div>
+            <div className="md:hidden">
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-gray-600 hover:text-gray-900 focus:outline-none"
+              >
+                {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </div>
+          
+          {/* Mobile Menu */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden border-t border-gray-200 py-4">
+              <div className="flex flex-col space-y-4">
+                <Link
+                  to="/"
+                  className="text-primary-600 font-medium px-4 py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Home
+                </Link>
+                <Link
+                  to="/courses"
+                  className="text-gray-600 hover:text-gray-900 font-medium px-4 py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Courses
+                </Link>
+                <Link
+                  to="/about"
+                  className="text-gray-600 hover:text-gray-900 font-medium px-4 py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  About
+                </Link>
+                <Link
+                  to="/contact"
+                  className="text-gray-600 hover:text-gray-900 font-medium px-4 py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Contact
+                </Link>
+                <div className="flex flex-col space-y-2 px-4 pt-4 border-t border-gray-200">
+                  <Link
+                    to="/auth/login"
+                    className="text-gray-600 hover:text-gray-900 font-medium py-2"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    to="/auth/register"
+                    className="btn-primary text-center"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Get Started
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </header>
 
@@ -55,7 +133,7 @@ const LandingPage: React.FC = () => {
                 <ArrowRight className="ml-2" size={20} />
               </Link>
               <Link
-                to="/app/courses"
+                to="/courses"
                 className="btn-outline px-8 py-3 text-lg inline-flex items-center"
               >
                 <Play className="mr-2" size={20} />
@@ -157,6 +235,12 @@ const LandingPage: React.FC = () => {
             <p className="text-gray-400 mb-4">
               Empowering learners worldwide with quality education.
             </p>
+            <div className="flex justify-center space-x-6 mb-4">
+              <Link to="/" className="text-gray-400 hover:text-white">Home</Link>
+              <Link to="/courses" className="text-gray-400 hover:text-white">Courses</Link>
+              <Link to="/about" className="text-gray-400 hover:text-white">About</Link>
+              <Link to="/contact" className="text-gray-400 hover:text-white">Contact</Link>
+            </div>
             <p className="text-gray-500 text-sm">
               © 2024 Uvarsity. All rights reserved.
             </p>

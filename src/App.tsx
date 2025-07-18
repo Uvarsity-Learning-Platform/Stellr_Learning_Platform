@@ -8,6 +8,9 @@ import AuthLayout from '@/components/layout/AuthLayout';
 
 // Page Components
 import LandingPage from '@/pages/LandingPage';
+import AboutPage from '@/pages/AboutPage';
+import ContactPage from '@/pages/ContactPage';
+import PublicCoursesPage from '@/pages/PublicCoursesPage';
 import LoginPage from '@/pages/auth/LoginPage';
 import RegisterPage from '@/pages/auth/RegisterPage';
 import OTPVerificationPage from '@/pages/auth/OTPVerificationPage';
@@ -34,6 +37,24 @@ function App() {
           <Route path="/" element={
             <PublicRoute>
               <LandingPage />
+            </PublicRoute>
+          } />
+          
+          <Route path="/courses" element={
+            <PublicRoute>
+              <PublicCoursesPage />
+            </PublicRoute>
+          } />
+          
+          <Route path="/about" element={
+            <PublicRoute>
+              <AboutPage />
+            </PublicRoute>
+          } />
+          
+          <Route path="/contact" element={
+            <PublicRoute>
+              <ContactPage />
             </PublicRoute>
           } />
           
@@ -76,7 +97,7 @@ function App() {
           <Route path="/login" element={<Navigate to="/auth/login" replace />} />
           <Route path="/register" element={<Navigate to="/auth/register" replace />} />
           <Route path="/dashboard" element={<Navigate to="/app/dashboard" replace />} />
-          <Route path="/courses" element={<Navigate to="/app/courses" replace />} />
+          <Route path="/app/courses" element={<Navigate to="/app/courses" replace />} />
           <Route path="/certificates" element={<Navigate to="/app/certificates" replace />} />
           <Route path="/settings" element={<Navigate to="/app/settings" replace />} />
 

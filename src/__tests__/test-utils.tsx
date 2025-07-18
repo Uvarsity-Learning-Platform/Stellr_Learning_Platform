@@ -1,7 +1,10 @@
 // Test utilities and helpers
-import { render, RenderOptions } from '@testing-library/react';
-import { ReactElement } from 'react';
+/* eslint-disable react-refresh/only-export-components */
+import { render } from '@testing-library/react';
+import type { RenderOptions } from '@testing-library/react';
+import type { ReactElement } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import { vi } from 'vitest';
 
 // Custom render function that includes common providers
 const AllTheProviders = ({ children }: { children: React.ReactNode }) => {

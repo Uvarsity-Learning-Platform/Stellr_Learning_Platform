@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { 
   Play, 
@@ -24,13 +24,7 @@ const CourseDetailPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isEnrolling, setIsEnrolling] = useState(false);
 
-  useEffect(() => {
-    if (courseId) {
-      loadCourseData();
-    }
-  }, [courseId]);
-
-  const loadCourseData = async () => {
+  const loadCourseData = useCallback(async () => {
     if (!courseId) return;
     
     setIsLoading(true);
@@ -52,7 +46,13 @@ const CourseDetailPage: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [courseId]);
+
+  useEffect(() => {
+    if (courseId) {
+      loadCourseData();
+    }
+  }, [courseId, loadCourseData]);
 
   const handleEnroll = async () => {
     if (!courseId) return;
@@ -64,6 +64,7 @@ const CourseDetailPage: React.FC = () => {
       // Reload course data to update enrollment status
       loadCourseData();
     } catch (error) {
+      console.error('Enrollment failed:', error);
       toast.error('Failed to enroll in course');
     } finally {
       setIsEnrolling(false);

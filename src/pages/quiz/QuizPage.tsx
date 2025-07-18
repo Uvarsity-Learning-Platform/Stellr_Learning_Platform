@@ -97,12 +97,14 @@ const QuizPage: React.FC = () => {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     // Simulate loading quiz data
     setTimeout(() => {
       setQuiz(mockQuiz);
       setTimeLeft((mockQuiz.timeLimit || 30) * 60); // Convert minutes to seconds
       setIsLoading(false);
     }, 1000);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -112,6 +114,7 @@ const QuizPage: React.FC = () => {
     } else if (timeLeft === 0 && !isSubmitted) {
       handleSubmitQuiz();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeLeft, isSubmitted]);
 
   const handleAnswerChange = (questionId: string, optionIndex: number, isMultiple: boolean) => {

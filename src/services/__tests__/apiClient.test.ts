@@ -10,8 +10,22 @@ const mockedAxios = vi.mocked(axios);
 const mockedToast = vi.mocked(toast);
 
 describe('ApiClient', () => {
-  let mockAxiosInstance: any;
-  let mockLocalStorage: any;
+  let mockAxiosInstance: {
+    get: ReturnType<typeof vi.fn>;
+    post: ReturnType<typeof vi.fn>;
+    put: ReturnType<typeof vi.fn>;
+    patch: ReturnType<typeof vi.fn>;
+    delete: ReturnType<typeof vi.fn>;
+    interceptors: {
+      request: { use: ReturnType<typeof vi.fn> };
+      response: { use: ReturnType<typeof vi.fn> };
+    };
+  };
+  let mockLocalStorage: {
+    getItem: ReturnType<typeof vi.fn>;
+    setItem: ReturnType<typeof vi.fn>;
+    removeItem: ReturnType<typeof vi.fn>;
+  };
 
   beforeEach(() => {
     // Reset all mocks
@@ -34,7 +48,8 @@ describe('ApiClient', () => {
       },
     };
 
-    mockedAxios.create.mockReturnValue(mockAxiosInstance);
+    // Mock axios.create to return our mock instance
+    mockedAxios.create = vi.fn().mockReturnValue(mockAxiosInstance);
 
     // Mock localStorage
     mockLocalStorage = {

@@ -4,7 +4,10 @@ import type { Course, UserProgress, Certificate } from '@/types';
 interface AppStore {
   // Courses
   courses: Course[];
+  currentCourse: Course | null;
   setCourses: (courses: Course[]) => void;
+  setCurrentCourse: (course: Course | null) => void;
+  clearCurrentCourse: () => void;
   addCourse: (course: Course) => void;
   updateCourse: (courseId: string, updates: Partial<Course>) => void;
   
@@ -29,7 +32,10 @@ interface AppStore {
 export const useAppStore = create<AppStore>((set) => ({
   // Courses
   courses: [],
+  currentCourse: null,
   setCourses: (courses) => set({ courses }),
+  setCurrentCourse: (currentCourse) => set({ currentCourse }),
+  clearCurrentCourse: () => set({ currentCourse: null }),
   addCourse: (course) => set((state) => ({ courses: [...state.courses, course] })),
   updateCourse: (courseId, updates) =>
     set((state) => ({

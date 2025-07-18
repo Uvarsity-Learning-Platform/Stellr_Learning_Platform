@@ -6,13 +6,10 @@ import {
   Lock, 
   Bell, 
   Shield, 
-  Palette, 
-  Globe, 
   Save, 
   Camera, 
   Edit2,
-  AlertCircle,
-  CheckCircle2
+  AlertCircle
 } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { useAuthStore } from '@/store/authStore';
@@ -64,6 +61,7 @@ const SettingsPage: React.FC = () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
       toast.success('Profile updated successfully!');
     } catch (error) {
+      console.error('Profile update failed:', error);
       toast.error('Failed to update profile');
     } finally {
       setIsLoading(false);
@@ -94,6 +92,7 @@ const SettingsPage: React.FC = () => {
         confirmPassword: '',
       });
     } catch (error) {
+      console.error('Password change failed:', error);
       toast.error('Failed to change password');
     } finally {
       setIsLoading(false);
@@ -134,7 +133,7 @@ const SettingsPage: React.FC = () => {
                 return (
                   <button
                     key={tab.id}
-                    onClick={() => setActiveTab(tab.id as any)}
+                    onClick={() => setActiveTab(tab.id as 'profile' | 'account' | 'notifications' | 'privacy')}
                     className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-colors ${
                       activeTab === tab.id
                         ? 'bg-primary-50 text-primary-600 border border-primary-200'

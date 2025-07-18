@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { createMockCourse, createMockUser } from '@/__tests__/test-utils';
+import { describe, it, expect } from 'vitest';
+import { createMockCourse } from '@/__tests__/test-utils';
 
 // Simple store test without complex mocking
 describe('AppStore', () => {

@@ -11,7 +11,17 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
-    "test:run": "vitest run"
+    "test:run": "vitest run",
+    "backend:install": "cd backend && npm install",
+    "backend:dev": "cd backend && npm run dev",
+    "backend:build": "cd backend && npm run build",
+    "backend:start": "cd backend && npm start",
+    "backend:db:generate": "cd backend && npx prisma generate",
+    "backend:db:push": "cd backend && npx prisma db push",
+    "backend:db:seed": "cd backend && npm run db:seed",
+    "backend:db:studio": "cd backend && npx prisma studio",
+    "dev:all": "concurrently \"npm run dev\" \"npm run backend:dev\"",
+    "setup": "npm install && npm run backend:install"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
@@ -35,6 +45,7 @@
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.6.0",
     "autoprefixer": "^10.4.21",
+    "concurrently": "^9.2.0",
     "eslint": "^9.30.1",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",

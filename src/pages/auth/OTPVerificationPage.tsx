@@ -88,8 +88,9 @@ const OTPVerificationPage: React.FC = () => {
           navigate('/app/dashboard');
         }
       }
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Invalid OTP');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Invalid OTP';
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -115,7 +116,8 @@ const OTPVerificationPage: React.FC = () => {
           return prev - 1;
         });
       }, 1000);
-    } catch (error: any) {
+    } catch (error: unknown) {
+      console.error('Failed to resend OTP:', error);
       toast.error('Failed to resend OTP');
     }
   };

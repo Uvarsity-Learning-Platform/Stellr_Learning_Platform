@@ -1,5 +1,4 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { createMockCourse, createMockLesson } from '@/__tests__/test-utils';
 
 // Mock the apiClient
 vi.mock('@/services/apiClient', () => ({
@@ -14,10 +13,6 @@ describe('CourseService', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     vi.useFakeTimers();
-  });
-
-  afterEach(() => {
-    vi.useRealTimers();
   });
 
   describe('getCourses', () => {
@@ -302,7 +297,6 @@ describe('CourseService', () => {
   describe('Performance', () => {
     it('should respond within expected time', async () => {
       const { CourseService } = await import('@/services/courseService');
-      const startTime = Date.now();
       const promise = CourseService.getCourses();
       vi.advanceTimersByTime(800);
       await promise;

@@ -64,8 +64,9 @@ const LoginPage: React.FC = () => {
         toast.success('Welcome back!');
         navigate('/app/dashboard');
       }
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Login failed');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Login failed';
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }

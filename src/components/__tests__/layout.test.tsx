@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@/__tests__/test-utils';
+import { Outlet, BrowserRouter } from 'react-router-dom';
 
 // Mock react-router-dom
 vi.mock('react-router-dom', () => ({
@@ -106,8 +107,6 @@ describe('Layout Components', () => {
 
     it('should handle React Router integration', () => {
       // Test that the mock router components work correctly
-      const { Outlet } = require('react-router-dom');
-      
       render(<Outlet />);
       expect(screen.getByTestId('outlet')).toBeInTheDocument();
     });
@@ -150,19 +149,13 @@ describe('Layout Components', () => {
       const { default: AuthLayout } = await import('@/components/layout/AuthLayout');
       
       // Should be able to render layout with children
-      render(
-        <AuthLayout>
-          <div data-testid="child-content">Child Content</div>
-        </AuthLayout>
-      );
+      render(<AuthLayout />);
 
       // Should render the outlet (which represents the child routes)
       expect(screen.getByTestId('outlet')).toBeInTheDocument();
     });
 
     it('should work with React Router patterns', () => {
-      const { BrowserRouter, Outlet } = require('react-router-dom');
-      
       render(
         <BrowserRouter>
           <Outlet />

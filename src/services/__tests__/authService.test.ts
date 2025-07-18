@@ -1,5 +1,4 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { createMockUser, createMockApiResponse } from '@/__tests__/test-utils';
 
 // Mock the apiClient
 vi.mock('@/services/apiClient', () => ({
@@ -13,10 +12,6 @@ describe('AuthService', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     vi.useFakeTimers();
-  });
-
-  afterEach(() => {
-    vi.useRealTimers();
   });
 
   describe('login', () => {

@@ -1,4 +1,21 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
+import { 
+  createMockUser, 
+  createMockCourse, 
+  createMockLesson,
+  createMockApiResponse,
+  createMockPaginatedResponse,
+  render,
+  screen,
+  waitForLoadingToFinish
+} from '@/__tests__/test-utils';
+import * as apiClientTest from '@/services/__tests__/apiClient.test';
+import * as authServiceTest from '@/services/__tests__/authService.test';
+import * as courseServiceTest from '@/services/__tests__/courseService.test';
+import * as authStoreTest from '@/store/__tests__/authStore.test';
+import * as appStoreTest from '@/store/__tests__/appStore.test';
+import * as authTest from '@/components/__tests__/auth.test';
+import * as layoutTest from '@/components/__tests__/layout.test';
 
 // Integration tests for the overall application architecture
 describe('Application Integration', () => {
@@ -51,14 +68,6 @@ describe('Application Integration', () => {
     });
 
     it('should support mock data factories', () => {
-      const { 
-        createMockUser, 
-        createMockCourse, 
-        createMockLesson,
-        createMockApiResponse,
-        createMockPaginatedResponse 
-      } = require('@/__tests__/test-utils');
-
       expect(typeof createMockUser).toBe('function');
       expect(typeof createMockCourse).toBe('function');
       expect(typeof createMockLesson).toBe('function');
@@ -135,20 +144,16 @@ describe('Application Integration', () => {
 
   describe('Test Infrastructure', () => {
     it('should have complete test utilities', () => {
-      const utils = require('@/__tests__/test-utils');
-
       // Should export essential testing utilities
-      expect(utils.render).toBeDefined();
-      expect(utils.screen).toBeDefined();
-      expect(utils.createMockUser).toBeDefined();
-      expect(utils.createMockCourse).toBeDefined();
-      expect(utils.createMockLesson).toBeDefined();
-      expect(utils.waitForLoadingToFinish).toBeDefined();
+      expect(render).toBeDefined();
+      expect(screen).toBeDefined();
+      expect(createMockUser).toBeDefined();
+      expect(createMockCourse).toBeDefined();
+      expect(createMockLesson).toBeDefined();
+      expect(waitForLoadingToFinish).toBeDefined();
     });
 
     it('should support custom render with providers', () => {
-      const { render } = require('@/__tests__/test-utils');
-      
       expect(typeof render).toBe('function');
       // Should be the custom render, not the original one
       expect(render.name).not.toBe('render');
@@ -220,13 +225,13 @@ describe('Application Integration', () => {
     it('should have proper test coverage structure', () => {
       // Test that test files exist for major modules
       const testModules = [
-        require('@/services/__tests__/apiClient.test'),
-        require('@/services/__tests__/authService.test'),
-        require('@/services/__tests__/courseService.test'),
-        require('@/store/__tests__/authStore.test'),
-        require('@/store/__tests__/appStore.test'),
-        require('@/components/__tests__/auth.test'),
-        require('@/components/__tests__/layout.test'),
+        apiClientTest,
+        authServiceTest,
+        courseServiceTest,
+        authStoreTest,
+        appStoreTest,
+        authTest,
+        layoutTest,
       ];
 
       testModules.forEach(testModule => {

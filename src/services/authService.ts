@@ -60,8 +60,9 @@ export class AuthService {
     // return apiClient.post<ApiResponse<{ user: User; token: string }>>('/auth/register', data);
   }
 
-  static async sendOTP(_phone: string): Promise<ApiResponse<{ sent: boolean }>> {
+  static async sendOTP(phone: string): Promise<ApiResponse<{ sent: boolean }>> {
     // Mock implementation
+    console.log('Sending OTP to:', phone);
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({

@@ -76,8 +76,9 @@ const RegisterPage: React.FC = () => {
         toast.success('Welcome to Stellr Academy!');
         navigate('/app/dashboard');
       }
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Registration failed');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Registration failed';
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }

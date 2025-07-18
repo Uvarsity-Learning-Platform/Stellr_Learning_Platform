@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { 
   Play, 
@@ -31,13 +31,7 @@ const LessonPage: React.FC = () => {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [showSidebar, setShowSidebar] = useState(true);
 
-  useEffect(() => {
-    if (courseId && lessonId) {
-      loadLessonData();
-    }
-  }, [courseId, lessonId]);
-
-  const loadLessonData = async () => {
+  const loadLessonData = useCallback(async () => {
     if (!courseId || !lessonId) return;
     
     setIsLoading(true);
@@ -64,7 +58,13 @@ const LessonPage: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [courseId, lessonId]);
+
+  useEffect(() => {
+    if (courseId && lessonId) {
+      loadLessonData();
+    }
+  }, [courseId, lessonId, loadLessonData]);
 
   const handleLessonComplete = async () => {
     if (!currentLesson) return;

@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@/__tests__/test-utils';
+import { useAuthStore } from '@/store/authStore';
 
 // Mock react-router-dom
 vi.mock('react-router-dom', () => ({
@@ -104,7 +105,6 @@ describe('Auth Components', () => {
   describe('Authentication States', () => {
     it('should work with mock auth store', () => {
       // Test that the mock auth store is working
-      const { useAuthStore } = require('@/store/authStore');
       const authState = useAuthStore();
       
       expect(authState.isAuthenticated).toBe(false);

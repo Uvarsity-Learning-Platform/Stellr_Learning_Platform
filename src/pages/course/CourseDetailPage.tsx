@@ -126,14 +126,14 @@ const CourseDetailPage: React.FC = () => {
           <div className="card p-6">
             <div className="flex items-start gap-4 mb-6">
               <img
-                src={course.thumbnail}
+                src={course.thumbnail || course.thumbnailUrl}
                 alt={course.title}
                 className="w-32 h-24 rounded-lg object-cover"
               />
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(course.difficulty)}`}>
-                    {course.difficulty}
+                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(course.difficulty || course.level || 'Beginner')}`}>
+                    {course.difficulty || course.level || 'Beginner'}
                   </span>
                   <span className="text-sm text-gray-500">{course.category}</span>
                 </div>

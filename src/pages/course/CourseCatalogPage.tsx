@@ -99,14 +99,14 @@ const CourseCatalogPage: React.FC = () => {
           {filteredCourses.map((course) => (
             <div key={course.id} className="card overflow-hidden hover:shadow-lg transition-shadow">
               <img
-                src={course.thumbnail}
+                src={course.thumbnail || course.thumbnailUrl}
                 alt={course.title}
                 className="w-full h-48 object-cover"
               />
               <div className="p-6">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(course.difficulty)}`}>
-                    {course.difficulty}
+                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(course.difficulty || course.level || 'Beginner')}`}>
+                    {course.difficulty || course.level || 'Beginner'}
                   </span>
                   <span className="text-xs text-gray-500">{course.category}</span>
                 </div>

@@ -4,7 +4,7 @@ import { ArrowRight, Menu, X, CheckCircle, Star } from 'lucide-react';
 
 const LandingPage: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [courses, setCourses] = useState<any[]>([]);
+  const [courses] = useState<unknown[]>([]);
   const [isLoadingCourses, setIsLoadingCourses] = useState(true);
 
   // Placeholder for when courses will be fetched from backend
@@ -259,7 +259,7 @@ const LandingPage: React.FC = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {isLoadingCourses || courses.length === 0 ? (
               // Show gray placeholders while loading or when no courses available
-              coursePlaceholders.map((placeholder, index) => (
+              coursePlaceholders.map((_, index) => (
                 <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden">
                   <div className="relative">
                     <div className="w-full h-48 bg-gray-300 animate-pulse"></div>
@@ -272,22 +272,10 @@ const LandingPage: React.FC = () => {
                 </div>
               ))
             ) : (
-              // Show actual courses when available from backend
-              courses.map((course, index) => (
-                <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow group cursor-pointer">
-                  <div className="relative">
-                    <img src={course.image} alt={course.title} className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <h3 className="text-white font-bold text-lg mb-1">{course.title}</h3>
-                      <p className="text-gray-300 text-sm">{course.duration}</p>
-                    </div>
-                    <div className="absolute top-4 right-4">
-                      <ArrowRight className="text-white opacity-0 group-hover:opacity-100 transition-opacity" size={20} />
-                    </div>
-                  </div>
-                </div>
-              ))
+              // TODO: Show actual courses when available from backend
+              <div className="text-center text-gray-500 py-8">
+                <p>No courses available at the moment.</p>
+              </div>
             )}
           </div>
 

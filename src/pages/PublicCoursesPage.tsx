@@ -1,122 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, Clock, Star, BookOpen, Play, Users, Award } from 'lucide-react';
-
-// Mock data for courses since we don't have the actual service in public context
-const mockCourses = [
-  {
-    id: '1',
-    title: 'Complete Web Development Bootcamp',
-    description: 'Learn HTML, CSS, JavaScript, React, Node.js, and more. Build amazing web applications from scratch.',
-    thumbnail: '/api/placeholder/400/300',
-    instructor: { name: 'John Doe', avatar: '/api/placeholder/40/40' },
-    duration: 2400, // 40 hours
-    lessonsCount: 45,
-    difficulty: 'Beginner',
-    category: 'Web Development',
-    rating: 4.8,
-    studentsCount: 1250,
-    price: 99.99,
-    isFeatured: true
-  },
-  {
-    id: '2',
-    title: 'Advanced React Development',
-    description: 'Master React with hooks, context, Redux, and modern patterns. Build scalable applications.',
-    thumbnail: '/api/placeholder/400/300',
-    instructor: { name: 'Jane Smith', avatar: '/api/placeholder/40/40' },
-    duration: 1800, // 30 hours
-    lessonsCount: 32,
-    difficulty: 'Advanced',
-    category: 'Web Development',
-    rating: 4.9,
-    studentsCount: 890,
-    price: 129.99,
-    isFeatured: true
-  },
-  {
-    id: '3',
-    title: 'UI/UX Design Fundamentals',
-    description: 'Learn design principles, user research, prototyping, and modern design tools.',
-    thumbnail: '/api/placeholder/400/300',
-    instructor: { name: 'Mike Johnson', avatar: '/api/placeholder/40/40' },
-    duration: 1500, // 25 hours
-    lessonsCount: 28,
-    difficulty: 'Beginner',
-    category: 'Design',
-    rating: 4.7,
-    studentsCount: 675,
-    price: 79.99,
-    isFeatured: false
-  },
-  {
-    id: '4',
-    title: 'Data Science with Python',
-    description: 'Learn Python, pandas, NumPy, machine learning, and data visualization.',
-    thumbnail: '/api/placeholder/400/300',
-    instructor: { name: 'Sarah Wilson', avatar: '/api/placeholder/40/40' },
-    duration: 3000, // 50 hours
-    lessonsCount: 55,
-    difficulty: 'Intermediate',
-    category: 'Data Science',
-    rating: 4.8,
-    studentsCount: 1150,
-    price: 149.99,
-    isFeatured: true
-  },
-  {
-    id: '5',
-    title: 'Digital Marketing Mastery',
-    description: 'Master SEO, social media marketing, content marketing, and paid advertising.',
-    thumbnail: '/api/placeholder/400/300',
-    instructor: { name: 'Tom Brown', avatar: '/api/placeholder/40/40' },
-    duration: 1200, // 20 hours
-    lessonsCount: 22,
-    difficulty: 'Beginner',
-    category: 'Business',
-    rating: 4.6,
-    studentsCount: 950,
-    price: 89.99,
-    isFeatured: false
-  },
-  {
-    id: '6',
-    title: 'Mobile App Development',
-    description: 'Build native and cross-platform mobile apps using React Native and Flutter.',
-    thumbnail: '/api/placeholder/400/300',
-    instructor: { name: 'Lisa Davis', avatar: '/api/placeholder/40/40' },
-    duration: 2700, // 45 hours
-    lessonsCount: 42,
-    difficulty: 'Intermediate',
-    category: 'Web Development',
-    rating: 4.7,
-    studentsCount: 720,
-    price: 119.99,
-    isFeatured: false
-  }
-];
+import { CourseService } from '@/services/courseService';
+import type { Course } from '@/types';
 
 const categories = ['All', 'Web Development', 'Design', 'Data Science', 'Business'];
 
 const PublicCoursesPage: React.FC = () => {
-  const [courses] = useState(mockCourses);
+  const [courses, setCourses] = useState<Course[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate loading
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-  }, []);
+    const fetchCoursesWrapper = async () => {
+      setIsLoading(true);
+      try {
+        const response = await CourseService.getCourses(
+          1, 
+          50, 
+          selectedCategory !== 'All' ? selectedCategory : undefined,
+          searchTerm || undefined
+        );
+        setCourses(response.data);
+      } catch (error) {
+        console.error('Error fetching courses:', error);
+        setCourses([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  const filteredCourses = courses.filter(course => {
-    const matchesSearch = course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         course.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'All' || course.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+    fetchCoursesWrapper();
+  }, [selectedCategory, searchTerm]);
+
+  const featuredCourses = courses.filter(course => course.rating >= 4.7);
+  const filteredCourses = courses;
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -132,6 +51,113 @@ const PublicCoursesPage: React.FC = () => {
     const mins = minutes % 60;
     return `${hours}h ${mins}m`;
   };
+
+  const formatPrice = (price?: number) => {
+    if (!price) return 'Free';
+    return `$${price.toFixed(2)}`;
+  };
+
+  const renderCourseCard = (course: Course) => {
+    const difficulty = course.difficulty || course.level || 'Beginner';
+    const thumbnail = course.thumbnail || course.thumbnailUrl || '/api/placeholder/400/300';
+    const instructorName = typeof course.instructor === 'string' ? course.instructor : course.instructor?.name || 'Unknown';
+    const instructorAvatar = typeof course.instructor === 'object' ? course.instructor.avatar : '/api/placeholder/40/40';
+    const price = (course as { price?: number }).price || 0;
+    
+    return (
+      <div key={course.id} className="card overflow-hidden hover:shadow-lg transition-shadow">
+        <img
+          src={thumbnail}
+          alt={course.title}
+          className="w-full h-48 object-cover"
+        />
+        <div className="p-6">
+          <div className="flex items-center gap-2 mb-2">
+            <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(difficulty)}`}>
+              {difficulty}
+            </span>
+            <span className="text-xs text-gray-500">{course.category}</span>
+          </div>
+          
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">{course.title}</h3>
+          <p className="text-gray-600 text-sm mb-4 line-clamp-2">{course.description}</p>
+          
+          <div className="flex items-center text-sm text-gray-500 mb-4 gap-4">
+            <div className="flex items-center gap-1">
+              <Clock size={16} />
+              <span>{formatDuration(course.duration)}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <BookOpen size={16} />
+              <span>{course.lessonsCount || 0} lessons</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <Users size={16} />
+              <span>{course.studentsCount || 0}</span>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <img
+                src={instructorAvatar}
+                alt={instructorName}
+                className="w-6 h-6 rounded-full"
+              />
+              <span className="text-sm text-gray-600">{instructorName}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <Star className="text-yellow-400 fill-current" size={16} />
+              <span className="text-sm text-gray-600">{course.rating || 0}</span>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div className="text-2xl font-bold text-primary-600">
+              {formatPrice(price)}
+            </div>
+            <Link
+              to="/auth/register"
+              className="btn-primary text-sm"
+            >
+              Enroll Now
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderPlaceholderCard = (index: number) => (
+    <div key={index} className="card overflow-hidden">
+      <div className="w-full h-48 bg-gray-200 animate-pulse"></div>
+      <div className="p-6">
+        <div className="flex items-center gap-2 mb-2">
+          <div className="bg-gray-200 h-4 w-16 rounded-full animate-pulse"></div>
+          <div className="bg-gray-200 h-4 w-20 rounded animate-pulse"></div>
+        </div>
+        <div className="bg-gray-200 h-6 w-3/4 rounded mb-2 animate-pulse"></div>
+        <div className="bg-gray-200 h-4 w-full rounded mb-2 animate-pulse"></div>
+        <div className="bg-gray-200 h-4 w-2/3 rounded mb-4 animate-pulse"></div>
+        <div className="flex items-center gap-4 mb-4">
+          <div className="bg-gray-200 h-4 w-16 rounded animate-pulse"></div>
+          <div className="bg-gray-200 h-4 w-20 rounded animate-pulse"></div>
+          <div className="bg-gray-200 h-4 w-12 rounded animate-pulse"></div>
+        </div>
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <div className="bg-gray-200 w-6 h-6 rounded-full animate-pulse"></div>
+            <div className="bg-gray-200 h-4 w-16 rounded animate-pulse"></div>
+          </div>
+          <div className="bg-gray-200 h-4 w-8 rounded animate-pulse"></div>
+        </div>
+        <div className="flex items-center justify-between">
+          <div className="bg-gray-200 h-8 w-16 rounded animate-pulse"></div>
+          <div className="bg-gray-200 h-8 w-20 rounded animate-pulse"></div>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-white">
@@ -274,101 +300,28 @@ const PublicCoursesPage: React.FC = () => {
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Featured Courses</h2>
             <div className="grid lg:grid-cols-3 gap-6">
-              {filteredCourses.filter(course => course.isFeatured).map((course) => (
-                <div key={course.id} className="card overflow-hidden hover:shadow-lg transition-shadow">
-                  <div className="relative">
-                    <img
-                      src={course.thumbnail}
-                      alt={course.title}
-                      className="w-full h-48 object-cover"
-                    />
-                    <div className="absolute top-4 left-4">
-                      <span className="bg-primary-600 text-white px-2 py-1 rounded-full text-xs font-medium">
-                        Featured
-                      </span>
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(course.difficulty)}`}>
-                        {course.difficulty}
-                      </span>
-                      <span className="text-xs text-gray-500">{course.category}</span>
-                    </div>
-                    
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{course.title}</h3>
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-2">{course.description}</p>
-                    
-                    <div className="flex items-center text-sm text-gray-500 mb-4 gap-4">
-                      <div className="flex items-center gap-1">
-                        <Clock size={16} />
-                        <span>{formatDuration(course.duration)}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <BookOpen size={16} />
-                        <span>{course.lessonsCount} lessons</span>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-2">
-                        <img
-                          src={course.instructor.avatar}
-                          alt={course.instructor.name}
-                          className="w-6 h-6 rounded-full"
-                        />
-                        <span className="text-sm text-gray-600">{course.instructor.name}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Star className="text-yellow-400 fill-current" size={16} />
-                        <span className="text-sm text-gray-600">{course.rating}</span>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <div className="text-2xl font-bold text-primary-600">
-                        ${course.price}
-                      </div>
-                      <Link
-                        to="/auth/register"
-                        className="btn-primary text-sm"
-                      >
-                        Enroll Now
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* All Courses */}
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">All Courses</h2>
-            {isLoading ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[...Array(6)].map((_, i) => (
-                  <div key={i} className="card p-6 animate-pulse">
-                    <div className="bg-gray-200 h-48 rounded-lg mb-4"></div>
-                    <div className="bg-gray-200 h-4 rounded mb-2"></div>
-                    <div className="bg-gray-200 h-3 rounded mb-4"></div>
-                    <div className="bg-gray-200 h-8 rounded"></div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredCourses.map((course) => (
+              {isLoading ? (
+                // Show placeholders while loading
+                Array.from({ length: 3 }).map((_, index) => renderPlaceholderCard(index))
+              ) : featuredCourses.length > 0 ? (
+                featuredCourses.slice(0, 3).map(course => (
                   <div key={course.id} className="card overflow-hidden hover:shadow-lg transition-shadow">
-                    <img
-                      src={course.thumbnail}
-                      alt={course.title}
-                      className="w-full h-48 object-cover"
-                    />
+                    <div className="relative">
+                      <img
+                        src={course.thumbnail || course.thumbnailUrl || '/api/placeholder/400/300'}
+                        alt={course.title}
+                        className="w-full h-48 object-cover"
+                      />
+                      <div className="absolute top-4 left-4">
+                        <span className="bg-primary-600 text-white px-2 py-1 rounded-full text-xs font-medium">
+                          Featured
+                        </span>
+                      </div>
+                    </div>
                     <div className="p-6">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(course.difficulty)}`}>
-                          {course.difficulty}
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(course.difficulty || course.level || 'Beginner')}`}>
+                          {course.difficulty || course.level || 'Beginner'}
                         </span>
                         <span className="text-xs text-gray-500">{course.category}</span>
                       </div>
@@ -383,32 +336,28 @@ const PublicCoursesPage: React.FC = () => {
                         </div>
                         <div className="flex items-center gap-1">
                           <BookOpen size={16} />
-                          <span>{course.lessonsCount} lessons</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Users size={16} />
-                          <span>{course.studentsCount}</span>
+                          <span>{course.lessonsCount || 0} lessons</span>
                         </div>
                       </div>
 
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-2">
                           <img
-                            src={course.instructor.avatar}
-                            alt={course.instructor.name}
+                            src={typeof course.instructor === 'object' ? course.instructor.avatar || '/api/placeholder/40/40' : '/api/placeholder/40/40'}
+                            alt={typeof course.instructor === 'string' ? course.instructor : course.instructor?.name || 'Unknown'}
                             className="w-6 h-6 rounded-full"
                           />
-                          <span className="text-sm text-gray-600">{course.instructor.name}</span>
+                          <span className="text-sm text-gray-600">{typeof course.instructor === 'string' ? course.instructor : course.instructor?.name || 'Unknown'}</span>
                         </div>
                         <div className="flex items-center gap-1">
                           <Star className="text-yellow-400 fill-current" size={16} />
-                          <span className="text-sm text-gray-600">{course.rating}</span>
+                          <span className="text-sm text-gray-600">{course.rating || 0}</span>
                         </div>
                       </div>
 
                       <div className="flex items-center justify-between">
                         <div className="text-2xl font-bold text-primary-600">
-                          ${course.price}
+                          {formatPrice((course as { price?: number }).price)}
                         </div>
                         <Link
                           to="/auth/register"
@@ -419,7 +368,25 @@ const PublicCoursesPage: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                ))}
+                ))
+              ) : (
+                <div className="col-span-3 text-center py-8">
+                  <p className="text-gray-500">No featured courses available at the moment.</p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* All Courses */}
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">All Courses</h2>
+            {isLoading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {Array.from({ length: 6 }).map((_, index) => renderPlaceholderCard(index))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredCourses.map(course => renderCourseCard(course))}
               </div>
             )}
           </div>

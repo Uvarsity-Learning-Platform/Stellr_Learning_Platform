@@ -73,7 +73,7 @@ const RegisterPage: React.FC = () => {
       
       if (response.success) {
         login(response.data.user);
-        toast.success('Welcome to Stellr Academy!');
+        toast.success('Welcome to Uvarsity!');
         navigate('/app/dashboard');
       }
     } catch (error: unknown) {
@@ -101,7 +101,7 @@ const RegisterPage: React.FC = () => {
           Create Your Account
         </h2>
         <p className="text-gray-600">
-          Join thousands of learners on Stellr Academy
+          Join thousands of learners on Uvarsity
         </p>
       </div>
 

@@ -1,10 +1,10 @@
-# Testing Guide for Stellr Academy
+# Testing Guide for Uvarsity
 
-This document provides comprehensive instructions for running tests locally and understanding the testing infrastructure in the Stellr Academy application.
+This document provides comprehensive instructions for running tests locally and understanding the testing infrastructure in the Uvarsity application.
 
 ## Overview
 
-Stellr Academy uses a modern testing stack with the following tools:
+Uvarsity uses a modern testing stack with the following tools:
 - **Vitest**: Fast unit test runner built on Vite
 - **React Testing Library**: For testing React components
 - **Jest DOM**: Additional matchers for DOM testing
@@ -43,7 +43,7 @@ The application has comprehensive test coverage for:
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd Stellr-Academy
+cd Uvarsity
 
 # Install dependencies
 npm install

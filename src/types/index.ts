@@ -35,20 +35,26 @@ export interface Course {
   id: string;
   title: string;
   description: string;
-  thumbnail: string;
-  category: string;
-  tags: string[];
-  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
-  duration: number; // in minutes
-  lessonsCount: number;
-  enrolled: boolean;
-  progress: number; // 0-100
   instructor: {
     name: string;
     avatar?: string;
   };
+  thumbnailUrl: string;
+  level: 'Beginner' | 'Intermediate' | 'Advanced';
+  duration: number; // in minutes
+  studentsCount: number;
+  rating: number;
+  category: string;
+  tags?: string[];
+  enrolled?: boolean;
+  progress?: number; // 0-100
+  lessonsCount?: number;
+  isPublished?: boolean;
   createdAt: string;
   updatedAt: string;
+  // Legacy properties for backward compatibility
+  thumbnail?: string;
+  difficulty?: 'Beginner' | 'Intermediate' | 'Advanced';
 }
 
 export interface Lesson {

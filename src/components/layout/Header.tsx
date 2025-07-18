@@ -28,10 +28,10 @@ const Header: React.FC = () => {
             </button>
             <Link to="/app/dashboard" className="flex items-center ml-2 lg:ml-0">
               <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">S</span>
+                <span className="text-white font-bold text-sm">U</span>
               </div>
               <span className="ml-2 text-xl font-bold text-gray-900 hidden sm:block">
-                Stellr Academy
+                Uvarsity
               </span>
             </Link>
           </div>

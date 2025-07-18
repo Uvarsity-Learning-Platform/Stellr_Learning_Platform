@@ -11,10 +11,10 @@ const LandingPage: React.FC = () => {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">S</span>
+                <span className="text-white font-bold text-sm">U</span>
               </div>
               <span className="ml-2 text-xl font-bold text-gray-900">
-                Stellr Academy
+                Uvarsity
               </span>
             </div>
             <div className="flex items-center space-x-4">
@@ -43,7 +43,7 @@ const LandingPage: React.FC = () => {
               Learn. Grow. <span className="text-primary-600">Excel.</span>
             </h1>
             <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Join thousands of learners on Stellr Academy and master new skills 
+              Join thousands of learners on Uvarsity and master new skills 
               with our comprehensive courses, interactive quizzes, and certified programs.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -71,7 +71,7 @@ const LandingPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Why Choose Stellr Academy?
+              Why Choose Uvarsity?
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Our platform is designed to provide the best learning experience 
@@ -130,7 +130,7 @@ const LandingPage: React.FC = () => {
           </h2>
           <p className="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
             Join thousands of students who are already advancing their careers 
-            with Stellr Academy.
+            with Uvarsity.
           </p>
           <Link
             to="/auth/register"
@@ -148,17 +148,17 @@ const LandingPage: React.FC = () => {
           <div className="text-center">
             <div className="flex items-center justify-center mb-4">
               <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">S</span>
+                <span className="text-white font-bold text-sm">U</span>
               </div>
               <span className="ml-2 text-xl font-bold">
-                Stellr Academy
+                Uvarsity
               </span>
             </div>
             <p className="text-gray-400 mb-4">
               Empowering learners worldwide with quality education.
             </p>
             <p className="text-gray-500 text-sm">
-              © 2024 Stellr Academy. All rights reserved.
+              © 2024 Uvarsity. All rights reserved.
             </p>
           </div>
         </div>

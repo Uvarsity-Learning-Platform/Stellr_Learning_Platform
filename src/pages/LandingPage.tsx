@@ -1,49 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Menu, X, CheckCircle, Star } from 'lucide-react';
 
 const LandingPage: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [courses, setCourses] = useState<any[]>([]);
+  const [isLoadingCourses, setIsLoadingCourses] = useState(true);
 
-  // Placeholder courses data as mentioned in the issue
-  const courses = [
-    {
-      title: "UX Design",
-      category: "Design",
-      image: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=400&h=300&fit=crop",
-      duration: "8 weeks"
-    },
-    {
-      title: "Digital Marketing",
-      category: "Marketing",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop",
-      duration: "6 weeks"
-    },
-    {
-      title: "Motion Design",
-      category: "Design",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop",
-      duration: "10 weeks"
-    },
-    {
-      title: "Web Development",
-      category: "Development",
-      image: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=400&h=300&fit=crop",
-      duration: "12 weeks"
-    },
-    {
-      title: "Mobile Design",
-      category: "Design",
-      image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=300&fit=crop",
-      duration: "8 weeks"
-    },
-    {
-      title: "Brand Experience",
-      category: "Branding",
-      image: "https://images.unsplash.com/photo-1558655146-d09347e92766?w=400&h=300&fit=crop",
-      duration: "6 weeks"
-    }
-  ];
+  // Placeholder for when courses will be fetched from backend
+  // For now, we'll show gray placeholders as requested
+  const coursePlaceholders = Array(6).fill(null).map((_, index) => ({
+    id: index + 1,
+    isPlaceholder: true
+  }));
+
+  // This useEffect simulates where courses would be fetched from backend
+  // For now, it keeps courses empty to show placeholders
+  useEffect(() => {
+    // TODO: Replace with actual API call when backend is ready
+    // const fetchCourses = async () => {
+    //   try {
+    //     const response = await fetch('/api/courses');
+    //     const coursesData = await response.json();
+    //     setCourses(coursesData);
+    //     setIsLoadingCourses(false);
+    //   } catch (error) {
+    //     console.error('Error fetching courses:', error);
+    //     setIsLoadingCourses(false);
+    //   }
+    // };
+    // fetchCourses();
+    
+    // For now, we'll keep courses empty to show placeholders
+    setTimeout(() => {
+      setIsLoadingCourses(false);
+    }, 1000); // Simulate loading delay
+  }, []);
 
   const testimonials = [
     {
@@ -265,21 +257,38 @@ const LandingPage: React.FC = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {courses.map((course, index) => (
-              <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow group cursor-pointer">
-                <div className="relative">
-                  <img src={course.image} alt={course.title} className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <h3 className="text-white font-bold text-lg mb-1">{course.title}</h3>
-                    <p className="text-gray-300 text-sm">{course.duration}</p>
-                  </div>
-                  <div className="absolute top-4 right-4">
-                    <ArrowRight className="text-white opacity-0 group-hover:opacity-100 transition-opacity" size={20} />
+            {isLoadingCourses || courses.length === 0 ? (
+              // Show gray placeholders while loading or when no courses available
+              coursePlaceholders.map((placeholder, index) => (
+                <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden">
+                  <div className="relative">
+                    <div className="w-full h-48 bg-gray-300 animate-pulse"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <div className="bg-gray-400 h-6 w-32 rounded mb-2 animate-pulse"></div>
+                      <div className="bg-gray-400 h-4 w-20 rounded animate-pulse"></div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              // Show actual courses when available from backend
+              courses.map((course, index) => (
+                <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow group cursor-pointer">
+                  <div className="relative">
+                    <img src={course.image} alt={course.title} className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <h3 className="text-white font-bold text-lg mb-1">{course.title}</h3>
+                      <p className="text-gray-300 text-sm">{course.duration}</p>
+                    </div>
+                    <div className="absolute top-4 right-4">
+                      <ArrowRight className="text-white opacity-0 group-hover:opacity-100 transition-opacity" size={20} />
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
 
           <div className="text-center mt-12">

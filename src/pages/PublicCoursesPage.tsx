@@ -171,7 +171,7 @@ const PublicCoursesPage: React.FC = () => {
                   <span className="text-white font-bold text-sm">U</span>
                 </div>
                 <span className="ml-2 text-xl font-bold text-gray-900">
-                  Uvarsity
+                  Stellr
                 </span>
               </Link>
             </div>
@@ -405,9 +405,9 @@ const PublicCoursesPage: React.FC = () => {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Why Choose Uvarsity?</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Why Choose Stellr?</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Join thousands of learners who trust Uvarsity for their professional development
+              Join thousands of learners who trust Stellr for their professional development
             </p>
           </div>
 
@@ -452,7 +452,7 @@ const PublicCoursesPage: React.FC = () => {
             Ready to Start Your Learning Journey?
           </h2>
           <p className="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
-            Join thousands of students who are already advancing their careers with Uvarsity.
+            Join thousands of students who are already advancing their careers with Stellr.
           </p>
           <Link
             to="/auth/register"
@@ -473,7 +473,7 @@ const PublicCoursesPage: React.FC = () => {
                 <span className="text-white font-bold text-sm">U</span>
               </div>
               <span className="ml-2 text-xl font-bold">
-                Uvarsity
+                Stellr
               </span>
             </div>
             <p className="text-gray-400 mb-4">
@@ -486,7 +486,7 @@ const PublicCoursesPage: React.FC = () => {
               <Link to="/contact" className="text-gray-400 hover:text-white">Contact</Link>
             </div>
             <p className="text-gray-500 text-sm">
-              © 2024 Uvarsity. All rights reserved.
+              © 2024 Stellr. All rights reserved.
             </p>
           </div>
         </div>

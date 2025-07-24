@@ -37,7 +37,7 @@ const ContactPage: React.FC = () => {
                   <span className="text-white font-bold text-sm">U</span>
                 </div>
                 <span className="ml-2 text-xl font-bold text-gray-900">
-                  Uvarsity
+                  Stellr
                 </span>
               </Link>
             </div>
@@ -178,8 +178,8 @@ const ContactPage: React.FC = () => {
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Email</h3>
                     <p className="text-gray-600 mb-2">Get in touch via email</p>
-                    <a href="mailto:hello@uvarsity.com" className="text-primary-600 hover:text-primary-700">
-                      hello@uvarsity.com
+                    <a href="mailto:hello@Stellr.com" className="text-primary-600 hover:text-primary-700">
+                      hello@Stellr.com
                     </a>
                   </div>
                 </div>
@@ -326,7 +326,7 @@ const ContactPage: React.FC = () => {
               <p className="text-gray-600 mb-4">
                 Send us an email and we'll respond within 24 hours.
               </p>
-              <a href="mailto:support@uvarsity.com" className="btn-outline">
+              <a href="mailto:support@Stellr.com" className="btn-outline">
                 Email Us
               </a>
             </div>
@@ -354,7 +354,7 @@ const ContactPage: React.FC = () => {
             Ready to Start Learning?
           </h2>
           <p className="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
-            Join thousands of learners who are already advancing their careers with Uvarsity.
+            Join thousands of learners who are already advancing their careers with Stellr.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -383,7 +383,7 @@ const ContactPage: React.FC = () => {
                 <span className="text-white font-bold text-sm">U</span>
               </div>
               <span className="ml-2 text-xl font-bold">
-                Uvarsity
+                Stellr
               </span>
             </div>
             <p className="text-gray-400 mb-4">
@@ -396,7 +396,7 @@ const ContactPage: React.FC = () => {
               <Link to="/contact" className="text-gray-400 hover:text-white">Contact</Link>
             </div>
             <p className="text-gray-500 text-sm">
-              © 2024 Uvarsity. All rights reserved.
+              © 2024 Stellr. All rights reserved.
             </p>
           </div>
         </div>

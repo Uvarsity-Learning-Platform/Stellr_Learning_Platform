@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Clock, CheckCircle, X, ArrowRight, ArrowLeft, RotateCcw } from 'lucide-react';
+import { Clock, CircleCheck, X, ArrowRight, ArrowLeft, RotateCcw } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import type { Quiz, QuizAttempt } from '@/types';
 
@@ -222,10 +222,10 @@ const QuizPage: React.FC = () => {
         {/* Quiz Results */}
         <div className="card p-8 text-center">
           <div className={`w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center ${
-            quizResult.passed ? 'bg-green-100' : 'bg-red-100'
+            quizResult.passed ? 'bg-primary-100' : 'bg-red-100'
           }`}>
             {quizResult.passed ? (
-              <CheckCircle className="text-green-600" size={48} />
+              <CircleCheck className="text-primary-600" size={48} />
             ) : (
               <X className="text-red-600" size={48} />
             )}
@@ -431,10 +431,10 @@ const QuizPage: React.FC = () => {
             <button
               onClick={handleSubmitQuiz}
               disabled={!canProceed}
-              className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+              className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
             >
-              Submit Quiz
-              <CheckCircle className="ml-2" size={16} />
+              <span>Submit Quiz</span>
+              <CircleCheck className="ml-2" size={16} />
             </button>
           ) : (
             <button

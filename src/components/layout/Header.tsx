@@ -31,7 +31,7 @@ const Header: React.FC = () => {
                 <span className="text-white font-bold text-sm">U</span>
               </div>
               <span className="ml-2 text-xl font-bold text-gray-900 hidden sm:block">
-                Uvarsity
+                Stellr
               </span>
             </Link>
           </div>

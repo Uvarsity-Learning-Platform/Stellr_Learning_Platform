@@ -15,7 +15,7 @@ const AboutPage: React.FC = () => {
                   <span className="text-white font-bold text-sm">U</span>
                 </div>
                 <span className="ml-2 text-xl font-bold text-gray-900">
-                  Uvarsity
+                  Stellr
                 </span>
               </Link>
             </div>
@@ -56,7 +56,7 @@ const AboutPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              About <span className="text-primary-600">Uvarsity</span>
+              About <span className="text-primary-600">Stellr</span>
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               We're on a mission to make quality education accessible to everyone, 
@@ -232,7 +232,7 @@ const AboutPage: React.FC = () => {
                 <span className="text-white font-bold text-sm">U</span>
               </div>
               <span className="ml-2 text-xl font-bold">
-                Uvarsity
+                Stellr
               </span>
             </div>
             <p className="text-gray-400 mb-4">
@@ -245,7 +245,7 @@ const AboutPage: React.FC = () => {
               <Link to="/contact" className="text-gray-400 hover:text-white">Contact</Link>
             </div>
             <p className="text-gray-500 text-sm">
-              © 2024 Uvarsity. All rights reserved.
+              © 2024 Stellr. All rights reserved.
             </p>
           </div>
         </div>

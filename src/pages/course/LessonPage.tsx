@@ -12,7 +12,7 @@ import {
   FileText, 
   Download, 
   Clock, 
-  CheckCircle2, 
+  CircleCheck, 
   Circle,
   Loader2
 } from 'lucide-react';
@@ -254,7 +254,7 @@ const LessonPage: React.FC = () => {
                   onClick={handleLessonComplete}
                   className="btn-primary"
                 >
-                  <CheckCircle2 className="w-5 h-5 mr-2" />
+                  <CircleCheck className="w-5 h-5 mr-2" />
                   Mark as Complete
                 </button>
               )}
@@ -306,7 +306,7 @@ const LessonPage: React.FC = () => {
                   <div className="flex items-start space-x-3">
                     <div className="flex-shrink-0 mt-1">
                       {lesson.completed ? (
-                        <CheckCircle2 className="w-5 h-5 text-green-500" />
+                        <CircleCheck className="w-5 h-5 text-green-500" />
                       ) : (
                         <Circle className="w-5 h-5 text-gray-400" />
                       )}

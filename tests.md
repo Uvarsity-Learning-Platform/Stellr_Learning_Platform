@@ -1,10 +1,10 @@
-# Testing Guide for Uvarsity
+# Testing Guide for Stellr
 
-This document provides comprehensive instructions for running tests locally and understanding the testing infrastructure in the Uvarsity application.
+This document provides comprehensive instructions for running tests locally and understanding the testing infrastructure in the Stellr application.
 
 ## Overview
 
-Uvarsity uses a modern testing stack with the following tools:
+Stellr uses a modern testing stack with the following tools:
 - **Vitest**: Fast unit test runner built on Vite
 - **React Testing Library**: For testing React components
 - **Jest DOM**: Additional matchers for DOM testing
@@ -43,7 +43,7 @@ The application has comprehensive test coverage for:
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd Uvarsity
+cd Stellr
 
 # Install dependencies
 npm install

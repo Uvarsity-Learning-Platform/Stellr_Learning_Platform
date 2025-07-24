@@ -7,7 +7,7 @@ import {
   Users, 
   Star, 
   Award, 
-  CheckCircle, 
+  CircleCheck, 
   Lock,
   Download,
   ArrowLeft,
@@ -281,7 +281,7 @@ const CourseDetailPage: React.FC = () => {
               <div className="flex items-center gap-3 flex-1">
                 <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-sm font-medium">
                   {lesson.completed ? (
-                    <CheckCircle className="text-green-500" size={16} />
+                    <CircleCheck className="text-green-500" size={16} />
                   ) : course.enrolled ? (
                     <span className="text-gray-600">{index + 1}</span>
                   ) : (

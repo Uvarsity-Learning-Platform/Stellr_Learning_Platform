@@ -58,7 +58,7 @@ const DashboardPage: React.FC = () => {
 
         <div className="card p-6">
           <div className="flex items-center">
-            <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+            <div className="w-12 h-12 bg-primary-700 rounded-lg flex items-center justify-center">
               <TrendingUp className="text-purple-600" size={24} />
             </div>
             <div className="ml-4">

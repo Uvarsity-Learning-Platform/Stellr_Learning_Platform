@@ -120,7 +120,7 @@ const LoginPage: React.FC = () => {
         {/* Right Side - Login Form */}
         <div className="bg-white p-6 md:p-8 lg:p-12 rounded-lg shadow-lg w-full lg:w-1/2 flex flex-col justify-center">
           <div className="mb-6 lg:mb-10">
-            <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">uvarsity</h2>
+            <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">Stellr</h2>
             <h3 className="text-lg lg:text-xl font-semibold text-gray-700 mb-1">Welcome Back</h3>
             <p className="text-gray-600">Continue your journey with us</p>
           </div>

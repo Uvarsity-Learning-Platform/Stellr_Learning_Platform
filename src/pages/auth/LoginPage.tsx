@@ -9,6 +9,7 @@ import { Eye, EyeOff } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { useAuthStore } from '@/store/authStore';
 import { AuthService } from '@/services/authService';
+import loginImage from '@/assets/login_image.png';
 
 const loginSchema = z.object({
   emailOrPhone: z.string().min(1, 'Email or phone is required'),
@@ -111,8 +112,8 @@ const LoginPage: React.FC = () => {
         {/* Left Side - Hero Image */}
         <div className="relative w-full lg:w-1/2 min-h-[300px] lg:min-h-[600px]">
           <img 
-            src="path/to/your/image.jpg" 
-            alt="Laptop with data visualization"
+            src={loginImage} 
+            alt="Laptop with data visualization - Your journey to tech excellence"
             className="w-full h-full object-cover rounded-lg shadow-lg"
           />
         </div>

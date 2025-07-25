@@ -9,6 +9,8 @@ const Header: React.FC<HeaderProps> = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const currentPath = location.pathname;
+  const isLogin = currentPath === '/login';
+  const isRegister = currentPath === '/register';
 
   const navLinks = [
     { to: '/', label: 'Home' },
@@ -42,20 +44,24 @@ const Header: React.FC<HeaderProps> = () => {
 
           {/* Desktop Auth */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link
-              to="/auth/login"
-              className="group text-gray-600 hover:text-gray-900 font-medium transition-colors px-4 py-2 border border-gray-300 rounded-lg flex items-center"
-            >
-              <span>Log in</span>
-              <ArrowRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
-            <Link
-              to="/auth/register"
-              className="text-white px-4 py-2 rounded-lg font-medium transition-all"
-              style={{ background: '#7F23FF' }}
-            >
-              Register
-            </Link>
+            {!isLogin && (
+              <Link
+                to="/login"
+                className="group text-gray-600 hover:text-gray-900 font-medium transition-colors px-4 py-2 border border-gray-300 rounded-lg flex items-center"
+              >
+                <span>Log in</span>
+                <ArrowRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            )}
+            {!isRegister && (
+              <Link
+                to="/register"
+                className="text-white px-4 py-2 rounded-lg font-medium transition-all"
+                style={{ background: '#7F23FF' }}
+              >
+                Register
+              </Link>
+            )}
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -88,21 +94,25 @@ const Header: React.FC<HeaderProps> = () => {
             ))}
 
             {/* Mobile Auth Buttons */}
-            <Link
-              to="/auth/login"
-              className="group flex items-center text-gray-700 border border-gray-300 px-4 py-2 rounded-lg hover:text-gray-900 transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              <span>Log in</span>
-              <ArrowRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
-            <Link
-              to="/auth/register"
-              className="text-white bg-purple-700 hover:bg-purple-800 px-4 py-2 rounded-lg text-center font-medium"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Register
-            </Link>
+            {!isLogin && (
+              <Link
+                to="/login"
+                className="group flex items-center text-gray-700 border border-gray-300 px-4 py-2 rounded-lg hover:text-gray-900 transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <span>Log in</span>
+                <ArrowRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            )}
+            {!isRegister && (
+              <Link
+                to="/register"
+                className="text-white bg-purple-700 hover:bg-purple-800 px-4 py-2 rounded-lg text-center font-medium"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Register
+              </Link>
+            )}
           </nav>
         </div>
       )}

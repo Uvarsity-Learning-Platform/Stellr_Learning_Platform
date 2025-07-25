@@ -138,7 +138,7 @@ const PublicCoursesPage: React.FC = () => {
             <div className="text-xl font-bold text-purple-600">
               {formatPrice(price)}
             </div>
-            <Link to="/auth/register" className="text-sm text-purple-600 font-medium hover:underline">
+            <Link to="/register" className="text-sm text-purple-600 font-medium hover:underline">
               Enroll Now
             </Link>
           </div>

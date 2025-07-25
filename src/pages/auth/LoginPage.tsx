@@ -251,7 +251,7 @@ const LoginPage: React.FC = () => {
 
         <div className="mt-8 pt-8 border-t border-gray-200">
           <p className="text-sm text-gray-500 text-center">
-            © 2025 UvarsityEdu. All rights reserved.
+            © 2025 StellrEdu. All rights reserved.
           </p>
         </div>
       </div>

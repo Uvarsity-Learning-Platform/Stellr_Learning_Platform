@@ -1,55 +1,15 @@
 import React from 'react';
+import Header from '../components/landing/Header';
+import Footer from '../components/landing/Footer';
 import { Link } from 'react-router-dom';
 import { BookOpen, Users, Award, Target, Heart, Globe } from 'lucide-react';
 
 const AboutPage: React.FC = () => {
+
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <Link to="/" className="flex items-center">
-                <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">U</span>
-                </div>
-                <span className="ml-2 text-xl font-bold text-gray-900">
-                  Stellr
-                </span>
-              </Link>
-            </div>
-            <nav className="hidden md:flex items-center space-x-8">
-              <Link to="/" className="text-gray-600 hover:text-gray-900 font-medium">
-                Home
-              </Link>
-              <Link to="/courses" className="text-gray-600 hover:text-gray-900 font-medium">
-                Courses
-              </Link>
-              <Link to="/about" className="text-primary-600 font-medium">
-                About
-              </Link>
-              <Link to="/contact" className="text-gray-600 hover:text-gray-900 font-medium">
-                Contact
-              </Link>
-            </nav>
-            <div className="flex items-center space-x-4">
-              <Link
-                to="/auth/login"
-                className="text-gray-600 hover:text-gray-900 font-medium"
-              >
-                Sign In
-              </Link>
-              <Link
-                to="/auth/register"
-                className="btn-primary"
-              >
-                Get Started
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
+      {/* Shared Header */}
+      <Header />
 
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary-50 to-primary-100 py-16">
@@ -224,32 +184,8 @@ const AboutPage: React.FC = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="flex items-center justify-center mb-4">
-              <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">U</span>
-              </div>
-              <span className="ml-2 text-xl font-bold">
-                Stellr
-              </span>
-            </div>
-            <p className="text-gray-400 mb-4">
-              Empowering learners worldwide with quality education.
-            </p>
-            <div className="flex justify-center space-x-6 mb-4">
-              <Link to="/" className="text-gray-400 hover:text-white">Home</Link>
-              <Link to="/courses" className="text-gray-400 hover:text-white">Courses</Link>
-              <Link to="/about" className="text-gray-400 hover:text-white">About</Link>
-              <Link to="/contact" className="text-gray-400 hover:text-white">Contact</Link>
-            </div>
-            <p className="text-gray-500 text-sm">
-              © 2024 Stellr. All rights reserved.
-            </p>
-          </div>
-        </div>
-      </footer>
+      {/* Shared Footer */}
+      <Footer />
     </div>
   );
 };

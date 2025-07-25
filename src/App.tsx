@@ -4,8 +4,6 @@ import { useAuthStore } from '@/store/authStore';
 
 // Layout Components
 import MainLayout from '@/components/layout/MainLayout';
-import AuthLayout from '@/components/layout/AuthLayout';
-
 // Page Components
 import LandingPage from '@/pages/LandingPage';
 import AboutPage from '@/pages/AboutPage';
@@ -58,24 +56,22 @@ function App() {
             </PublicRoute>
           } />
           
-          {/* Auth Routes */}
-          <Route path="/auth" element={<AuthLayout />}>
-            <Route path="login" element={
-              <PublicRoute>
-                <LoginPage />
-              </PublicRoute>
-            } />
-            <Route path="register" element={
-              <PublicRoute>
-                <RegisterPage />
-              </PublicRoute>
-            } />
-            <Route path="verify-otp" element={
-              <PublicRoute>
-                <OTPVerificationPage />
-              </PublicRoute>
-            } />
-          </Route>
+          {/* Auth Routes - direct, no AuthLayout */}
+          <Route path="/auth/login" element={
+            <PublicRoute>
+              <LoginPage />
+            </PublicRoute>
+          } />
+          <Route path="/auth/register" element={
+            <PublicRoute>
+              <RegisterPage />
+            </PublicRoute>
+          } />
+          <Route path="/auth/verify-otp" element={
+            <PublicRoute>
+              <OTPVerificationPage />
+            </PublicRoute>
+          } />
 
           {/* Protected Routes */}
           <Route path="/app" element={

@@ -18,7 +18,7 @@ const LandingPage: React.FC = () => {
   useEffect(() => { setTimeout(() => { setIsLoadingCourses(false); }, 1000); }, []);
   return (
     <div className="min-h-screen bg-white">
-      <Header isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
+      <Header />
       {isMobileMenuOpen && <MobileMenu setIsMobileMenuOpen={setIsMobileMenuOpen} />}
       <HeroSection />
       <WhatMakesUsDifferent />

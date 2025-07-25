@@ -143,7 +143,7 @@ const CourseDetailPage: React.FC = () => {
                 <div className="flex items-center gap-6 text-sm text-gray-500">
                   <div className="flex items-center gap-1">
                     <Clock size={16} />
-                    <span>{formatDuration(course.duration)}</span>
+                    <span>{formatDuration(course.duration ?? 0)}</span>
                   </div>
                   <div className="flex items-center gap-1">
                     <BookOpen size={16} />
@@ -164,12 +164,12 @@ const CourseDetailPage: React.FC = () => {
             {/* Instructor */}
             <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg">
               <img
-                src={course.instructor.avatar || '/default-avatar.png'}
-                alt={course.instructor.name}
+                src={typeof course.instructor === 'object' && course.instructor?.avatar ? course.instructor.avatar : '/default-avatar.png'}
+                alt={typeof course.instructor === 'object' && course.instructor?.name ? course.instructor.name : 'Instructor'}
                 className="w-12 h-12 rounded-full object-cover"
               />
               <div>
-                <p className="font-medium text-gray-900">{course.instructor.name}</p>
+                <p className="font-medium text-gray-900">{typeof course.instructor === 'object' && course.instructor?.name ? course.instructor.name : 'Instructor'}</p>
                 <p className="text-sm text-gray-600">Course Instructor</p>
               </div>
             </div>
@@ -272,7 +272,7 @@ const CourseDetailPage: React.FC = () => {
       <div className="card p-6">
         <h2 className="text-xl font-bold text-gray-900 mb-4">Course Content</h2>
         <p className="text-gray-600 mb-6">
-          {lessons.length} lessons • {formatDuration(course.duration)} total length
+          {lessons.length} lessons • {formatDuration(course.duration ?? 0)} total length
         </p>
 
         <div className="space-y-2">

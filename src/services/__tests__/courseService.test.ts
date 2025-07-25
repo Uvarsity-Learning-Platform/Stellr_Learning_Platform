@@ -119,7 +119,7 @@ describe('CourseService', () => {
       const result = await promise;
 
       expect(result.data.description).toContain('comprehensive course');
-      expect(result.data.description.length).toBeGreaterThan(100);
+      expect(result.data.description && result.data.description.length > 100).toBe(true);
     });
 
     it('should return enrolled course', async () => {
@@ -288,7 +288,7 @@ describe('CourseService', () => {
       vi.advanceTimersByTime(800);
       const result = await promise;
 
-      const durations = result.data.map(course => course.duration);
+      const durations = result.data.map(course => course.duration ?? 0);
       expect(durations.every(duration => duration > 0)).toBe(true);
       expect(durations.every(duration => duration <= 600)).toBe(true); // Max 10 hours
     });

@@ -33,7 +33,7 @@ describe('Auth Components', () => {
       );
 
       const navigate = screen.getByTestId('navigate');
-      expect(navigate).toHaveAttribute('data-to', '/auth/login');
+      expect(navigate).toHaveAttribute('data-to', '/login');
     });
   });
 

@@ -34,8 +34,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ setIsMobileMenuOpen }) => (
               <Link to="/contact" className="text-gray-900 font-medium text-lg py-2" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
             </div>
             <div className="mt-8 pt-8 border-t border-gray-200">
-              <Link to="/auth/login" className="text-gray-900 font-medium text-lg py-2 block mb-4" onClick={() => setIsMobileMenuOpen(false)}>Log in</Link>
-              <Link to="/auth/register" className="bg-primary-700 to-pink-600 text-white text-center text-lg py-3 block rounded-lg" onClick={() => setIsMobileMenuOpen(false)}>Get Started</Link>
+              <Link to="/login" className="text-gray-900 font-medium text-lg py-2 block mb-4" onClick={() => setIsMobileMenuOpen(false)}>Log in</Link>
+              <Link to="/register" className="bg-primary-700 to-pink-600 text-white text-center text-lg py-3 block rounded-lg" onClick={() => setIsMobileMenuOpen(false)}>Get Started</Link>
             </div>
           </div>
         </div>

@@ -72,7 +72,7 @@ const RegisterPage: React.FC = () => {
         return;
       }
 
-      // Email registration
+      //email registration
       const response = await AuthService.register(registerData);
       
       if (response.success) {

@@ -84,7 +84,6 @@ const LoginPage: React.FC = () => {
     <Header />
 
     {/* Mobile Menu - Optional, can be added later */}
-    {/* {isMobileMenuOpen && <MobileMenu setIsMobileMenuOpen={setIsMobileMenuOpen} />} */}
     {/* Main Content */}
     <main className="flex-1 flex items-center justify-center px-4 md:px-8">
       <div className="flex flex-col lg:flex-row w-full max-w-7xl gap-6 lg:gap-12 items-center justify-center py-12">

@@ -116,7 +116,7 @@ const RegisterPage: React.FC = () => {
           {/* Right side - Form */}
           <div className="w-full lg:w-1/2 flex items-center justify-center p-8 lg:p-12">
             <div className="w-full max-w-md">
-              {/* Uvarsity Logo and Title */}
+              {/* Stellr Logo and Title */}
               <div className="text-center mb-8">
                 <h1 className="text-3xl font-bold text-gray-900 mb-2">stellr</h1>
                 <h2 className="text-xl font-semibold text-gray-800 mb-2">Create Account</h2>

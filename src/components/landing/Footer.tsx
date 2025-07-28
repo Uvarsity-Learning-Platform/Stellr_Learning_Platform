@@ -47,7 +47,7 @@ const Footer = () => {
               <p>123 Edu Way</p>
               <p>Future City, FC 12345</p>
               <p className="mt-3">
-                <span className="block">Email: info@uvarsity.com</span>
+                <span className="block">Email: info@stellr.com</span>
                 <span className="block">Phone: (123) 456-7890</span>
               </p>
             </div>
@@ -63,7 +63,7 @@ const Footer = () => {
         {/* Bottom Section */}
         <div className="border-t border-gray-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-500 text-sm">
-            © 2025 UvarsityEdu. All rights reserved.
+            © 2025 Stellr. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#" className="text-blue-600 hover:text-blue-800 text-sm transition-colors">Privacy Policy</a>

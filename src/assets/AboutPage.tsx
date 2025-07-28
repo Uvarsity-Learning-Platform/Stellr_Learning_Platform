@@ -121,7 +121,7 @@ const AboutPage: React.FC = () => {
         Global-Standard Learning.<br />African Access.
       </h2>
       <p className="text-gray-700">
-        At Uvarsity, our mission is to unlock Africa’s potential through high-quality, job-ready education designed for local realities. We offer learners across the continent affordable access to industry-aligned courses, mentorship, community support, and online-friendly tools — all built for low-data environments and flexible learning.<br /><br />
+        At Stellr, our mission is to unlock Africa’s potential through high-quality, job-ready education designed for local realities. We offer learners across the continent affordable access to industry-aligned courses, mentorship, community support, and online-friendly tools — all built for low-data environments and flexible learning.<br /><br />
         Our commitment is simple: to make global-level digital and design education not just available in Africa, but truly accessible — regardless of background, bandwidth, or location.
       </p>
     </div>
@@ -140,7 +140,7 @@ const AboutPage: React.FC = () => {
       Skills Create Opportunity. Learning Makes It Happen.
     </h2>
     <p className="text-base md:text-lg text-black">
-      Whether you’re starting from scratch, growing your team, or ready to share your expertise — Uvarsity gives you the tools to succeed. Our mission is to make learning accessible, practical, and life-changing across Africa and beyond.
+      Whether you’re starting from scratch, growing your team, or ready to share your expertise — Stellr gives you the tools to succeed. Our mission is to make learning accessible, practical, and life-changing across Africa and beyond.
     </p>
   </div>
 </section>
@@ -339,7 +339,7 @@ const AboutPage: React.FC = () => {
     <div>
       <h4 className="text-lg font-semibold text-gray-900 mb-2">Contact</h4>
       <p className="text-gray-600 text-sm mb-1">123 Edu Way<br />Future City, FC 12345</p>
-      <p className="text-gray-600 text-sm mb-1">Email: info@uvarsity.com</p>
+      <p className="text-gray-600 text-sm mb-1">Email: info@stellr.com</p>
       <p className="text-gray-600 text-sm mb-3">Phone: (123) 456-7890</p>
       <div className="flex space-x-3">
   <a href="#" className="text-primary-600 hover:text-primary-800"><FaLinkedin size={18} /></a>
@@ -351,7 +351,7 @@ const AboutPage: React.FC = () => {
 
   <div className="mx-auto mt-8" style={{ width: "1270px", height: "1px", background: "#A3A3A3" }} />
   <div className="max-w-6xl mx-auto px-4 mt-8 flex flex-col md:flex-row justify-between items-center border-t border-gray-100 pt-6">
-    <p className="text-gray-500 text-sm">&copy; 2025 UvarsityEdu. All rights reserved.</p>
+    <p className="text-gray-500 text-sm">&copy; 2025 Stellr. All rights reserved.</p>
     <div className="flex space-x-4 mt-2 md:mt-0">
       <a href="#" className="text-gray-400 hover:text-primary-600 text-xs">Privacy Policy</a>
       <a href="#" className="text-gray-400 hover:text-primary-600 text-xs">Terms of Service</a>

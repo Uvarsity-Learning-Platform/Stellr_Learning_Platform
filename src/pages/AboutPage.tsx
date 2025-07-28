@@ -78,7 +78,7 @@ const AboutPage: React.FC = () => {
         Global-Standard Learning.<br />African Access.
       </h2>
       <p className="text-gray-700">
-        At Uvarsity, our mission is to unlock Africa’s potential through high-quality, job-ready education designed for local realities. We offer learners across the continent affordable access to industry-aligned courses, mentorship, community support, and online-friendly tools — all built for low-data environments and flexible learning.<br /><br />
+        At Stellr, our mission is to unlock Africa’s potential through high-quality, job-ready education designed for local realities. We offer learners across the continent affordable access to industry-aligned courses, mentorship, community support, and online-friendly tools — all built for low-data environments and flexible learning.<br /><br />
         Our commitment is simple: to make global-level digital and design education not just available in Africa, but truly accessible — regardless of background, bandwidth, or location.
       </p>
     </div>
@@ -97,7 +97,7 @@ const AboutPage: React.FC = () => {
       Skills Create Opportunity. Learning Makes It Happen.
     </h2>
     <p className="text-base md:text-lg text-black">
-      Whether you’re starting from scratch, growing your team, or ready to share your expertise — Uvarsity gives you the tools to succeed. Our mission is to make learning accessible, practical, and life-changing across Africa and beyond.
+      Whether you’re starting from scratch, growing your team, or ready to share your expertise — Stellr gives you the tools to succeed. Our mission is to make learning accessible, practical, and life-changing across Africa and beyond.
     </p>
   </div>
 </section>

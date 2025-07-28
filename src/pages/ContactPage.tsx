@@ -32,7 +32,7 @@ const ContactPage: React.FC = () => {
       <Header />
 
       {/* Hero Section with Background Image */}
-      <section className="relative h-[600px] px-4 flex items-center justify-center text-white overflow-hidden">
+      <section className="relative h-[500px] px-4 flex items-center justify-center text-white overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat h-[500px]"
           style={{
@@ -44,7 +44,7 @@ const ContactPage: React.FC = () => {
         <div className="relative text-center z-10">
           <h1 className="text-5xl font-bold mb-4">Contact us</h1>
           <p className="text-xl max-w-2xl mx-auto">
-            Have a question or want to connect with the Uvarsity team? We're here
+            Have a question or want to connect with the Stellr team? We're here
             to support your learning journey.
           </p>
         </div>
@@ -59,7 +59,7 @@ const ContactPage: React.FC = () => {
               <h2 className="text-3xl font-bold text-gray-900 mb-2">Get in touch</h2>
               <p className="text-gray-600 mb-8">
                 Fill out the form below or use our contact details
-                to reach the Uvarsity team.
+                to reach the Stellr team.
               </p>
 
               <div className="space-y-6">
@@ -83,7 +83,7 @@ const ContactPage: React.FC = () => {
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Email Us</h3>
                     <div className="space-y-1">
-                      <p className="text-gray-600">support@uvarsity.com</p>
+                      <p className="text-gray-600">support@Stellr.com</p>
                       <p className="text-gray-600">fuavarsity@letu.com</p>
                     </div>
                   </div>
@@ -107,7 +107,7 @@ const ContactPage: React.FC = () => {
                 <p className="text-sm font-semibold text-gray-900 mb-4">Follow our social media</p>
                 <div className="flex space-x-3">
                   <a
-                    href="https://facebook.com/uvarsity"
+                    href="https://facebook.com/Stellr"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-purple-600 rounded-full p-2 hover:bg-purple-700 cursor-pointer transition-colors"
@@ -116,7 +116,7 @@ const ContactPage: React.FC = () => {
                     <Facebook className="w-5 h-5 text-white" />
                   </a>
                   <a
-                    href="https://linkedin.com/company/uvarsity"
+                    href="https://linkedin.com/company/Stellr"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-purple-600 rounded-full p-2 hover:bg-purple-700 cursor-pointer transition-colors"
@@ -125,7 +125,7 @@ const ContactPage: React.FC = () => {
                     <Linkedin className="w-5 h-5 text-white" />
                   </a>
                   <a
-                    href="https://twitter.com/uvarsity"
+                    href="https://twitter.com/Stellr"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-purple-600 rounded-full p-2 hover:bg-purple-700 cursor-pointer transition-colors"
@@ -134,7 +134,7 @@ const ContactPage: React.FC = () => {
                     <Twitter className="w-5 h-5 text-white" />
                   </a>
                   <a
-                    href="https://instagram.com/uvarsity"
+                    href="https://instagram.com/Stellr"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-purple-600 rounded-full p-2 hover:bg-purple-700 cursor-pointer transition-colors"

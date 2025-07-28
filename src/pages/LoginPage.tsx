@@ -98,20 +98,15 @@ const LoginPage: React.FC = () => {
 
         {/* Right Side - Login Form (Custom Design) */}
         <div className="w-[478px] h-[593px] p-3 bg-white rounded-tr-lg rounded-br-lg inline-flex flex-col justify-center items-center gap-6 overflow-hidden">
-          <div className="w-32 h-9 relative">
-            <div className="w-4 h-5 left-0 top-[7.41px] absolute bg-slate-950" />
-            <div className="w-5 h-5 left-[19.47px] top-[7.41px] absolute bg-slate-950" />
-            <div className="w-4 h-6 left-[39.59px] top-[6.81px] absolute bg-slate-950" />
-            <div className="w-3 h-5 left-[60.51px] top-[7.41px] absolute bg-slate-950" />
-            <div className="w-4 h-6 left-[72.52px] top-[6.81px] absolute bg-slate-950" />
-            <div className="w-[5.07px] h-7 left-[92.66px] top-[1.16px] absolute bg-slate-950" />
-            <div className="w-5 h-7 left-[111.29px] top-[7.39px] absolute bg-slate-950" />
-            <div className="w-2.5 h-6 left-[100.03px] top-[2.57px] absolute bg-slate-950" />
-          </div>
+       <div className="w-32 h-9 relative">
+{/* Logo or graphic can go here */}
+<h2 className="text-2xl font-bold text-gray-800">Stellr</h2>
+</div>
           <div className="w-96 flex flex-col justify-start items-center gap-4">
             <div className="self-stretch flex flex-col justify-center items-start gap-4">
-              <div className="self-stretch flex flex-col justify-start items-start gap-4">
+              
                 <div className="w-52 flex flex-col justify-start items-start">
+
                   <div className="self-stretch justify-start text-slate-950 text-xl font-semibold font-['Roboto'] leading-loose">Welcome Back</div>
                   <div className="self-stretch justify-start text-slate-950 text-xs font-normal font-['Roboto'] leading-none">Continue your journey with us</div>
                 </div>
@@ -171,19 +166,19 @@ const LoginPage: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="self-stretch h-12 px-8 py-4 bg-violet-600 rounded-lg shadow-[0px_8px_12px_0px_rgba(127,35,255,0.16)] inline-flex justify-center items-center gap-2 text-white text-base font-semibold font-['Poppins'] leading-relaxed hover:bg-violet-700 transition-colors"
+                    className="self-stretch h-12 px-8 py-4 bg-violet-600 rounded-lg shadow-[0px_8px_12px_0px_rgba(127,35,255,0.16)] inline-flex justify-center items-center gap-2 text-white text-base font-normal font-['roboto'] leading-relaxed hover:bg-violet-700 transition-colors"
                   >
                     {isLoading ? 'Signing In...' : 'Log In'}
                   </button>
                   <div className="self-stretch h-0.5 bg-neutral-400 rounded-lg" />
-                  <div className="inline-flex justify-start items-center gap-1 w-full">
-                    <span className="justify-center text-slate-950 text-xs font-normal font-['Poppins'] leading-none">Don’t have an account?</span>
-                    <Link to="/register" className="justify-center text-amber-500 text-xs font-normal font-['Poppins'] underline leading-none ml-1">
+                  <div className="inline-flex justify-center items-center gap-1 w-full">
+                    <span className="justify-center text-slate-950 text-xs font-normal font-['roboto'] leading-none">Don’t have an account?</span>
+                    <Link to="/register" className="justify-center text-amber-500 text-xs font-normal font-['roboto'] underline leading-none">
                       Register
                     </Link>
                   </div>
                 </form>
-              </div>
+              
             </div>
           </div>
         </div>

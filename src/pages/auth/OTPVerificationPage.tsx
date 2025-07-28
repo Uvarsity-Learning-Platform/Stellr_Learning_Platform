@@ -20,7 +20,7 @@ const OTPVerificationPage: React.FC = () => {
 
   useEffect(() => {
     if (!phone) {
-      navigate('/auth/login');
+      navigate('/login');
       return;
     }
 
@@ -199,7 +199,7 @@ const OTPVerificationPage: React.FC = () => {
 
       <div className="mt-4 text-center">
         <button
-          onClick={() => navigate('/auth/login')}
+          onClick={() => navigate('/login')}
           className="text-sm text-gray-500 hover:text-gray-700"
         >
           Use a different phone number

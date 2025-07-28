@@ -1,18 +1,17 @@
+import LoginPage from '@/pages/LoginPage';
+import RegisterPage from '@/pages/RegisterPage';
+import ForgotPassword from '@/pages/auth/ForgotPassword';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { useAuthStore } from '@/store/authStore';
 
 // Layout Components
 import MainLayout from '@/components/layout/MainLayout';
-import AuthLayout from '@/components/layout/AuthLayout';
-
 // Page Components
 import LandingPage from '@/pages/LandingPage';
 import AboutPage from '@/pages/AboutPage';
 import ContactPage from '@/pages/ContactPage';
 import PublicCoursesPage from '@/pages/PublicCoursesPage';
-import LoginPage from '@/pages/auth/LoginPage';
-import RegisterPage from '@/pages/auth/RegisterPage';
 import OTPVerificationPage from '@/pages/auth/OTPVerificationPage';
 import DashboardPage from '@/pages/dashboard/DashboardPage';
 import CourseCatalogPage from '@/pages/course/CourseCatalogPage';
@@ -33,6 +32,21 @@ function App() {
     <Router>
       <div className="min-h-screen bg-gray-50">
         <Routes>
+          <Route path="/auth/forgot-password" element={
+            <PublicRoute>
+              <ForgotPassword />
+            </PublicRoute>
+          } />
+          <Route path="/login" element={
+            <PublicRoute>
+              <LoginPage />
+            </PublicRoute>
+          } />
+          <Route path="/register" element={
+            <PublicRoute>
+              <RegisterPage />
+            </PublicRoute>
+          } />
           {/* Public Routes */}
           <Route path="/" element={
             <PublicRoute>
@@ -58,24 +72,12 @@ function App() {
             </PublicRoute>
           } />
           
-          {/* Auth Routes */}
-          <Route path="/auth" element={<AuthLayout />}>
-            <Route path="login" element={
-              <PublicRoute>
-                <LoginPage />
-              </PublicRoute>
-            } />
-            <Route path="register" element={
-              <PublicRoute>
-                <RegisterPage />
-              </PublicRoute>
-            } />
-            <Route path="verify-otp" element={
-              <PublicRoute>
-                <OTPVerificationPage />
-              </PublicRoute>
-            } />
-          </Route>
+          {/* Auth Routes - direct, no AuthLayout */}
+          <Route path="/auth/verify-otp" element={
+            <PublicRoute>
+              <OTPVerificationPage />
+            </PublicRoute>
+          } />
 
           {/* Protected Routes */}
           <Route path="/app" element={
@@ -94,8 +96,6 @@ function App() {
           </Route>
 
           {/* Legacy Routes Redirect */}
-          <Route path="/login" element={<Navigate to="/auth/login" replace />} />
-          <Route path="/register" element={<Navigate to="/auth/register" replace />} />
           <Route path="/dashboard" element={<Navigate to="/app/dashboard" replace />} />
           <Route path="/app/courses" element={<Navigate to="/app/courses" replace />} />
           <Route path="/certificates" element={<Navigate to="/app/certificates" replace />} />

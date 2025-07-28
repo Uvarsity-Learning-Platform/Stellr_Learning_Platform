@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import Header from '../../components/landing/Header';
+import Footer from '../../components/landing/Footer';
 import { Link } from 'react-router-dom';
 import { Search, Clock, Star, BookOpen } from 'lucide-react';
 import { CourseService } from '@/services/courseService';
@@ -29,7 +31,7 @@ const CourseCatalogPage: React.FC = () => {
 
   const filteredCourses = courses.filter(course =>
     course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    course.description.toLowerCase().includes(searchTerm.toLowerCase())
+    (course.description ?? '').toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const getDifficultyColor = (difficulty: string) => {
@@ -43,11 +45,8 @@ const CourseCatalogPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Course Catalog</h1>
-        <p className="text-gray-600">Discover courses to advance your skills</p>
-      </div>
+      {/* Shared Header */}
+      <Header />
 
       {/* Search and Filters */}
       <div className="card p-6">
@@ -117,7 +116,11 @@ const CourseCatalogPage: React.FC = () => {
                 <div className="flex items-center text-sm text-gray-500 mb-4 gap-4">
                   <div className="flex items-center gap-1">
                     <Clock size={16} />
-                    <span>{Math.floor(course.duration / 60)}h {course.duration % 60}m</span>
+                    <span>
+                      {course.duration !== undefined
+                        ? `${Math.floor(course.duration / 60)}h ${course.duration % 60}m`
+                        : 'N/A'}
+                    </span>
                   </div>
                   <div className="flex items-center gap-1">
                     <BookOpen size={16} />
@@ -128,11 +131,21 @@ const CourseCatalogPage: React.FC = () => {
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
                     <img
-                      src={course.instructor.avatar || '/default-avatar.png'}
-                      alt={course.instructor.name}
+                      src={typeof course.instructor === 'object' && course.instructor !== null && 'avatar' in course.instructor
+                        ? course.instructor.avatar
+                        : '/default-avatar.png'}
+                      alt={typeof course.instructor === 'object' && course.instructor !== null && 'name' in course.instructor
+                        ? course.instructor.name
+                        : 'Instructor'}
                       className="w-6 h-6 rounded-full"
                     />
-                    <span className="text-sm text-gray-600">{course.instructor.name}</span>
+                    <span className="text-sm text-gray-600">
+                      {typeof course.instructor === 'object' && course.instructor !== null && 'name' in course.instructor
+                        ? course.instructor.name
+                        : typeof course.instructor === 'string'
+                          ? course.instructor
+                          : 'Unknown Instructor'}
+                    </span>
                   </div>
                   <div className="flex items-center gap-1">
                     <Star className="text-yellow-400 fill-current" size={16} />
@@ -170,6 +183,9 @@ const CourseCatalogPage: React.FC = () => {
           <p className="text-gray-600">Try adjusting your search or filter criteria.</p>
         </div>
       )}
+
+      {/* Shared Footer */}
+      <Footer />
     </div>
   );
 };

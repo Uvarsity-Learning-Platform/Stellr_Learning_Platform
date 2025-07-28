@@ -1,68 +1,62 @@
-// User types
+// User type
 export interface User {
   id: string;
-  email?: string;
-  phone?: string;
   firstName: string;
   lastName: string;
+  email?: string;
+  phone?: string;
   avatar?: string;
-  isOnboarded: boolean;
-  createdAt: string;
-  updatedAt: string;
+  bio?: string;
+  isOnboarded?: boolean;
+  enrolledCourses?: string[]; // Array of course IDs
+  certificates?: Certificate[];
+  progress?: UserProgress[];
+  createdAt?: string;
+  updatedAt?: string;
 }
 
-// Authentication types
-export interface LoginCredentials {
-  emailOrPhone: string;
-  password?: string;
+// Instructor type
+export interface Instructor {
+  totalDuration?: number;
+  id?: string;
+  name?: string;
+  avatar?: string;
+  bio?: string;
 }
 
-export interface OTPVerification {
-  phone: string;
-  otp: string;
-}
-
-export interface RegisterData {
-  firstName: string;
-  lastName: string;
-  email?: string;
-  phone?: string;
-  password?: string;
-}
-
-// Course types
+// Course type
 export interface Course {
   id: string;
   title: string;
-  description: string;
-  instructor: {
-    name: string;
-    avatar?: string;
-  };
-  thumbnailUrl: string;
-  level: 'Beginner' | 'Intermediate' | 'Advanced';
-  duration: number; // in minutes
-  studentsCount: number;
-  rating: number;
-  category: string;
+  description?: string;
+  category?: string;
+  difficulty?: 'Beginner' | 'Intermediate' | 'Advanced';
+  level?: 'Beginner' | 'Intermediate' | 'Advanced';
+  rating?: number;
+  price?: number;
+  createdAt?: string;
+  dateCreated?: string;
+  thumbnail?: string;
+  thumbnailUrl?: string;
+  instructor?: string | Instructor;
+  duration?: number; // in minutes
+  totalDuration?: number; // in minutes
+  studentsCount?: number;
   tags?: string[];
   enrolled?: boolean;
   progress?: number; // 0-100
   lessonsCount?: number;
   isPublished?: boolean;
-  createdAt: string;
-  updatedAt: string;
-  // Legacy properties for backward compatibility
-  thumbnail?: string;
-  difficulty?: 'Beginner' | 'Intermediate' | 'Advanced';
+  updatedAt?: string;
 }
 
+// Lesson type
 export interface Lesson {
   id: string;
   courseId: string;
   title: string;
-  description: string;
-  type: 'video' | 'pdf' | 'text';
+  description?: string;
+  type?: 'video' | 'pdf' | 'text';
   videoUrl?: string;
   pdfUrl?: string;
   content?: string;
@@ -72,12 +66,12 @@ export interface Lesson {
   createdAt: string;
 }
 
-// Quiz types
+// Quiz type
 export interface Quiz {
   id: string;
   courseId: string;
   title: string;
-  description: string;
+  description?: string;
   questions: QuizQuestion[];
   timeLimit?: number; // in minutes
   passingScore: number; // percentage
@@ -105,7 +99,7 @@ export interface QuizAttempt {
   completedAt?: string;
 }
 
-// Certificate types
+// Certificate type
 export interface Certificate {
   id: string;
   courseId: string;
@@ -114,9 +108,10 @@ export interface Certificate {
   studentName: string;
   completedAt: string;
   certificateUrl: string;
+  issuedAt?: string; // Added from original for flexibility
 }
 
-// Progress types
+// Progress type
 export interface UserProgress {
   courseId: string;
   courseName: string;
@@ -125,6 +120,25 @@ export interface UserProgress {
   totalLessons: number;
   lastAccessedAt: string;
   certificateEarned: boolean;
+}
+
+// Authentication types
+export interface LoginCredentials {
+  emailOrPhone: string;
+  password?: string;
+}
+
+export interface OTPVerification {
+  phone: string;
+  otp: string;
+}
+
+export interface RegisterData {
+  firstName: string;
+  lastName: string;
+  email?: string;
+  phone?: string;
+  password?: string;
 }
 
 // API Response types

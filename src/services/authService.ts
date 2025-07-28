@@ -28,7 +28,7 @@ export class AuthService {
     });
 
     // Uncomment when backend is ready:
-    // return apiClient.post<ApiResponse<{ user: User; token: string }>>('/auth/login', credentials);
+    // return apiClient.post<ApiResponse<{ user: User; token: string }>>('/login', credentials);
   }
 
   static async register(data: RegisterData): Promise<ApiResponse<{ user: User; token: string }>> {
@@ -57,7 +57,7 @@ export class AuthService {
     });
 
     // Uncomment when backend is ready:
-    // return apiClient.post<ApiResponse<{ user: User; token: string }>>('/auth/register', data);
+    // return apiClient.post<ApiResponse<{ user: User; token: string }>>('/register', data);
   }
 
   static async sendOTP(phone: string): Promise<ApiResponse<{ sent: boolean }>> {

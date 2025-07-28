@@ -1,64 +1,78 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { Facebook, Linkedin, Twitter, Instagram } from 'lucide-react';
 
-const Footer: React.FC = () => (
-  <footer className="bg-gray-900 text-white py-12">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="grid md:grid-cols-4 gap-8">
-        <div>
-          <div className="flex items-center mb-4">
-            <div className="w-8 h-8 bg-primary-700 to-pink-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">U</span>
+const Footer = () => {
+  return (
+    <footer className="bg-gray-50 py-12 border-t border-gray-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid md:grid-cols-4 gap-8">
+          {/* Brand Section */}
+          <div>
+            <div className="mb-4">
+              <h2 className="text-2xl font-bold text-gray-900">Stellr</h2>
             </div>
-            <span className="ml-2 text-xl font-bold">Stellr</span>
+            <p className="text-gray-600 text-sm mb-6 leading-relaxed">
+              Revolutionizing African education through practical design and tech skills, mentorship, and opportunity.
+            </p>
+
           </div>
-          <p className="text-gray-400 text-sm mb-4">Africa's Leading Online Learning Platform. Empowering the next generation of tech talents.</p>
-          <div className="flex space-x-4">
-            <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-700 transition-colors">
-              <span className="text-xs">f</span>
+
+          {/* Navigation Links */}
+          <div>
+            <h3 className="font-semibold text-gray-900 mb-4">Navigation Links</h3>
+            <div className="space-y-3 text-sm">
+              <a href="#" className="text-gray-600 hover:text-purple-600 block transition-colors">Home</a>
+              <a href="#" className="text-gray-600 hover:text-purple-600 block transition-colors">Courses</a>
+              <a href="#" className="text-gray-600 hover:text-purple-600 block transition-colors">About Us</a>
+              <a href="#" className="text-gray-600 hover:text-purple-600 block transition-colors">Contact Us</a>
             </div>
-            <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-700 transition-colors">
-              <span className="text-xs">t</span>
+          </div>
+
+          {/* Courses */}
+          <div>
+            <h3 className="font-semibold text-gray-900 mb-4">Courses</h3>
+            <div className="space-y-3 text-sm">
+              <a href="#" className="text-gray-600 hover:text-purple-600 block transition-colors">Web Development</a>
+              <a href="#" className="text-gray-600 hover:text-purple-600 block transition-colors">User Experience Design (UX)</a>
+              <a href="#" className="text-gray-600 hover:text-purple-600 block transition-colors">Brand Experience Design</a>
+              <a href="#" className="text-gray-600 hover:text-purple-600 block transition-colors">Digital Marketing</a>
+              <a href="#" className="text-gray-600 hover:text-purple-600 block transition-colors">Motion Design</a>
+              <a href="#" className="text-gray-600 hover:text-purple-600 block transition-colors">Merch Design</a>
             </div>
-            <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-700 transition-colors">
-              <span className="text-xs">in</span>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h3 className="font-semibold text-gray-900 mb-4">Contact</h3>
+            <div className="space-y-2 text-sm text-gray-600">
+              <p>123 Edu Way</p>
+              <p>Future City, FC 12345</p>
+              <p className="mt-3">
+                <span className="block">Email: info@uvarsity.com</span>
+                <span className="block">Phone: (123) 456-7890</span>
+              </p>
+            </div>
+            <div className="flex space-x-4 mt-4">
+              <Facebook size={20} className="text-purple-600 cursor-pointer hover:text-purple-700 transition-colors" />
+              <Linkedin size={20} className="text-purple-600 cursor-pointer hover:text-purple-700 transition-colors" />
+              <Twitter size={20} className="text-purple-600 cursor-pointer hover:text-purple-700 transition-colors" />
+              <Instagram size={20} className="text-purple-600 cursor-pointer hover:text-purple-700 transition-colors" />
             </div>
           </div>
         </div>
-        <div>
-          <h3 className="font-semibold mb-4">Navigation Links</h3>
-          <div className="space-y-2 text-sm">
-            <Link to="/" className="text-gray-400 hover:text-white block">Home</Link>
-            <Link to="/courses" className="text-gray-400 hover:text-white block">Courses</Link>
-            <Link to="/about" className="text-gray-400 hover:text-white block">About Us</Link>
-            <Link to="/contact" className="text-gray-400 hover:text-white block">Contact</Link>
-          </div>
-        </div>
-        <div>
-          <h3 className="font-semibold mb-4">Courses</h3>
-          <div className="space-y-2 text-sm">
-            <Link to="/courses/web-development" className="text-gray-400 hover:text-white block">Web Development</Link>
-            <Link to="/courses/mobile-development" className="text-gray-400 hover:text-white block">Mobile Development</Link>
-            <Link to="/courses/ux-design" className="text-gray-400 hover:text-white block">UX Design</Link>
-            <Link to="/courses/digital-marketing" className="text-gray-400 hover:text-white block">Digital Marketing</Link>
-            <Link to="/courses/motion-design" className="text-gray-400 hover:text-white block">Motion Design</Link>
-          </div>
-        </div>
-        <div>
-          <h3 className="font-semibold mb-4">Contact</h3>
-          <div className="space-y-2 text-sm text-gray-400">
-            <p>123 Tech Street</p>
-            <p>Accra, Ghana</p>
-            <p>+233 123 456 789</p>
-            <p>info@Stellr.com</p>
+
+        {/* Bottom Section */}
+        <div className="border-t border-gray-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-gray-500 text-sm">
+            © 2025 UvarsityEdu. All rights reserved.
+          </p>
+          <div className="flex space-x-6 mt-4 md:mt-0">
+            <a href="#" className="text-blue-600 hover:text-blue-800 text-sm transition-colors">Privacy Policy</a>
+            <a href="#" className="text-blue-600 hover:text-blue-800 text-sm transition-colors">Terms of Service</a>
           </div>
         </div>
       </div>
-      <div className="border-t border-gray-800 mt-8 pt-8 text-center">
-        <p className="text-gray-400 text-sm">© 2024 Stellr. All rights reserved. | Privacy Policy | Terms of Service</p>
-      </div>
-    </div>
-  </footer>
-);
+    </footer>
+  );
+};
 
 export default Footer;

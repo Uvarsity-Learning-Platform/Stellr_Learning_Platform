@@ -46,7 +46,7 @@ describe('Application Integration', () => {
       const modules = await Promise.all([
         import('@/components/auth/ProtectedRoute'),
         import('@/components/auth/PublicRoute'),
-        import('@/components/layout/AuthLayout'),
+        // import('@/components/layout/AuthLayout'),
         import('@/components/layout/MainLayout'),
         import('@/components/layout/Header'),
         import('@/components/layout/Sidebar'),
@@ -128,7 +128,7 @@ describe('Application Integration', () => {
       ]);
 
       const layoutComponents = await Promise.all([
-        import('@/components/layout/AuthLayout'),
+        // import('@/components/layout/AuthLayout'),
         import('@/components/layout/MainLayout'),
         import('@/components/layout/Header'),
         import('@/components/layout/Sidebar'),

@@ -32,9 +32,9 @@ const ContactPage: React.FC = () => {
       <Header />
 
       {/* Hero Section with Background Image */}
-      <section className="relative h-[640px] px-4 flex items-center justify-center text-white overflow-hidden">
+      <section className="relative h-[600px] px-4 flex items-center justify-center text-white overflow-hidden">
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat h-[500px]"
           style={{
             backgroundImage: 'url("src/assets/contact.png")',
           }}

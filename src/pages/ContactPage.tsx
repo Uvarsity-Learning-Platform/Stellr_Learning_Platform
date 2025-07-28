@@ -2,23 +2,22 @@ import React, { useState } from 'react';
 import Header from '../components/landing/Header';
 import Footer from '../components/landing/Footer';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Send, MessageCircle, Clock, ArrowRight } from 'lucide-react';
+import { Mail, Phone, MapPin, MessageCircle, ArrowRight, Facebook, Linkedin, Twitter, Instagram } from 'lucide-react';
 
 const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    telephone: '',
+    role: '',
     subject: '',
     message: ''
   });
 
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
     console.log('Form submitted:', formData);
-    // Reset form
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    setFormData({ name: '', email: '', telephone: '', role: '', subject: '', message: '' });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -30,30 +29,103 @@ const ContactPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Shared Header */}
+      {/* Header */}
       <Header />
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-50 to-primary-100 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Get in <span className="text-primary-600">Touch</span>
-            </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We'd love to hear from you. Send us a message and we'll respond as soon as possible.
-            </p>
-          </div>
+      {/* Hero Section with Background Image */}
+      <section className="relative h-[640px] px-4 flex items-center justify-center text-white overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: 'url("src/assets/contact.png")',
+          }}
+        >
+          <div className="absolute inset-0 "></div>
+        </div>
+        <div className="relative text-center z-10">
+          <h1 className="text-5xl font-bold mb-4">Contact us</h1>
+          <p className="text-xl max-w-2xl mx-auto">
+            Have a question or want to connect with the Uvarsity team? We're here
+            to support your learning journey.
+          </p>
         </div>
       </section>
 
-      {/* Contact Information */}
-      <section className="py-16">
+      {/* Main Contact Section */}
+      <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Send us a message</h2>
+          <div className="grid lg:grid-cols-2 gap-16">
+            {/* Left Side - Contact Info */}
+            <div className="bg-gray-100 rounded-lg p-8">
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">Get in touch</h2>
+              <p className="text-gray-600 mb-8">
+                Fill out the form below or use our contact details
+                to reach the Uvarsity team.
+              </p>
+
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4">
+                  <div className="bg-blue-600 rounded-full p-3 flex-shrink-0">
+                    <MapPin className="text-white" size={20} />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-1">Head Office</h3>
+                    <p className="text-gray-600">
+                      East Legon Street No.25<br />
+                      Accra - Ghana
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4">
+                  <div className="bg-blue-600 rounded-full p-3 flex-shrink-0">
+                    <Mail className="text-white" size={20} />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-1">Email Us</h3>
+                    <div className="space-y-1">
+                      <p className="text-gray-600">support@uvarsity.com</p>
+                      <p className="text-gray-600">fuavarsity@letu.com</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4">
+                  <div className="bg-blue-600 rounded-full p-3 flex-shrink-0">
+                    <Phone className="text-white" size={20} />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-1">Call Us</h3>
+                    <div className="space-y-1">
+                      <p className="text-gray-600">GH: +233 1234567</p>
+                      <p className="text-gray-600">USA: +1 1234567</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-8">
+                <p className="text-sm font-semibold text-gray-900 mb-4">Follow our social media</p>
+                <div className="flex space-x-3">
+                  <div className="bg-purple-600 rounded-full p-2 hover:bg-purple-700 cursor-pointer transition-colors">
+                    <Facebook className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="bg-purple-600 rounded-full p-2 hover:bg-purple-700 cursor-pointer transition-colors">
+                    <Linkedin className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="bg-purple-600 rounded-full p-2 hover:bg-purple-700 cursor-pointer transition-colors">
+                    <Twitter className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="bg-purple-600 rounded-full p-2 hover:bg-purple-700 cursor-pointer transition-colors">
+                    <Instagram className="w-5 h-5 text-white" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Side - Contact Form */}
+            <div className="bg-white">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8">Send us a message</h2>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
@@ -67,13 +139,13 @@ const ContactPage: React.FC = () => {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="input-field"
-                      placeholder="Your full name"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      placeholder="John Doe"
                     />
                   </div>
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                      Email Address
+                      Email
                     </label>
                     <input
                       type="email"
@@ -82,11 +154,43 @@ const ContactPage: React.FC = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="input-field"
-                      placeholder="your.email@example.com"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      placeholder="johnDoe@gmail.com"
                     />
                   </div>
                 </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="telephone" className="block text-sm font-medium text-gray-700 mb-2">
+                      Telephone
+                    </label>
+                    <input
+                      type="tel"
+                      id="telephone"
+                      name="telephone"
+                      value={formData.telephone}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      placeholder="+233 XX XXX XXXX"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-2">
+                      Role
+                    </label>
+                    <input
+                      type="text"
+                      id="role"
+                      name="role"
+                      value={formData.role}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      placeholder="eg: Learner"
+                    />
+                  </div>
+                </div>
+
                 <div>
                   <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
                     Subject
@@ -98,10 +202,11 @@ const ContactPage: React.FC = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="input-field"
-                    placeholder="How can we help you?"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    placeholder="Subject"
                   />
                 </div>
+
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
                     Message
@@ -113,229 +218,24 @@ const ContactPage: React.FC = () => {
                     onChange={handleChange}
                     required
                     rows={6}
-                    className="input-field resize-none"
-                    placeholder="Tell us more about your inquiry..."
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
+                    placeholder="Your message"
                   />
                 </div>
+
                 <button
                   type="submit"
-                  className="btn-primary w-full md:w-auto inline-flex items-center justify-center"
+                  className="w-full bg-purple-600 text-white font-semibold py-3 px-6 rounded-md hover:bg-purple-700 transition duration-200"
                 >
-                  <Send className="mr-2" size={20} />
-                  Send Message
+                  Send
                 </button>
               </form>
             </div>
-
-            {/* Contact Information */}
-            <div className="lg:pl-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Contact Information</h2>
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Mail className="text-primary-600" size={20} />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Email</h3>
-                    <p className="text-gray-600 mb-2">Get in touch via email</p>
-                    <a href="mailto:hello@Stellr.com" className="text-primary-600 hover:text-primary-700">
-                      hello@Stellr.com
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Phone className="text-primary-600" size={20} />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Phone</h3>
-                    <p className="text-gray-600 mb-2">Monday to Friday from 9am to 5pm</p>
-                    <a href="tel:+1234567890" className="text-primary-600 hover:text-primary-700">
-                      +1 (234) 567-890
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <MapPin className="text-primary-600" size={20} />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Office</h3>
-                    <p className="text-gray-600">
-                      123 Education Street<br />
-                      Learning City, LC 12345<br />
-                      United States
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Clock className="text-primary-600" size={20} />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Business Hours</h3>
-                    <div className="text-gray-600 space-y-1">
-                      <p>Monday - Friday: 9:00 AM - 5:00 PM</p>
-                      <p>Saturday: 10:00 AM - 2:00 PM</p>
-                      <p>Sunday: Closed</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="bg-gray-50 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
-            <p className="text-xl text-gray-600">
-              Find answers to common questions about our platform and services
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="space-y-6">
-              <div className="card p-6">
-                <h3 className="font-semibold text-gray-900 mb-2">How do I enroll in a course?</h3>
-                <p className="text-gray-600">
-                  Simply browse our course catalog, select a course that interests you, and click "Enroll Now". 
-                  You'll need to create an account if you don't have one already.
-                </p>
-              </div>
-
-              <div className="card p-6">
-                <h3 className="font-semibold text-gray-900 mb-2">Are certificates recognized?</h3>
-                <p className="text-gray-600">
-                  Yes! Our certificates are recognized by industry leaders and can be shared on your LinkedIn profile 
-                  and resume to showcase your skills.
-                </p>
-              </div>
-
-              <div className="card p-6">
-                <h3 className="font-semibold text-gray-900 mb-2">Can I access courses offline?</h3>
-                <p className="text-gray-600">
-                  Currently, our courses are online-only. However, we're working on downloadable content 
-                  for offline learning. Stay tuned for updates!
-                </p>
-              </div>
-            </div>
-
-            <div className="space-y-6">
-              <div className="card p-6">
-                <h3 className="font-semibold text-gray-900 mb-2">What's your refund policy?</h3>
-                <p className="text-gray-600">
-                  We offer a 30-day money-back guarantee on all courses. If you're not satisfied, 
-                  contact us within 30 days for a full refund.
-                </p>
-              </div>
-
-              <div className="card p-6">
-                <h3 className="font-semibold text-gray-900 mb-2">Do you offer student discounts?</h3>
-                <p className="text-gray-600">
-                  Yes! We offer special pricing for students. Contact us with your student ID 
-                  to learn more about our educational discounts.
-                </p>
-              </div>
-
-              <div className="card p-6">
-                <h3 className="font-semibold text-gray-900 mb-2">How do I reset my password?</h3>
-                <p className="text-gray-600">
-                  Click on "Forgot Password" on the login page and follow the instructions. 
-                  You'll receive an email with a link to reset your password.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Support Section */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Need More Help?</h2>
-            <p className="text-xl text-gray-600">
-              Our support team is here to help you succeed
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="card p-6 text-center">
-              <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <MessageCircle className="text-primary-600" size={24} />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Live Chat</h3>
-              <p className="text-gray-600 mb-4">
-                Get instant help with our live chat support available 24/7.
-              </p>
-              <button className="btn-primary">Start Chat</button>
-            </div>
-
-            <div className="card p-6 text-center">
-              <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Mail className="text-primary-600" size={24} />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Email Support</h3>
-              <p className="text-gray-600 mb-4">
-                Send us an email and we'll respond within 24 hours.
-              </p>
-              <a href="mailto:support@Stellr.com" className="btn-outline">
-                Email Us
-              </a>
-            </div>
-
-            <div className="card p-6 text-center">
-              <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Phone className="text-primary-600" size={24} />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Phone Support</h3>
-              <p className="text-gray-600 mb-4">
-                Call us during business hours for immediate assistance.
-              </p>
-              <a href="tel:+1234567890" className="btn-outline">
-                Call Now
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="bg-primary-600 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
-            Ready to Start Learning?
-          </h2>
-          <p className="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
-            Join thousands of learners who are already advancing their careers with Stellr.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              to="/register"
-              className="bg-white text-primary-600 hover:bg-gray-100 font-semibold py-3 px-8 rounded-lg transition-colors duration-200 inline-flex items-center justify-center"
-            >
-              Get Started Free
-              <ArrowRight className="ml-2" size={20} />
-            </Link>
-            <Link
-              to="/courses"
-              className="border-2 border-white text-white hover:bg-white hover:text-primary-600 font-semibold py-3 px-8 rounded-lg transition-colors duration-200"
-            >
-              Browse Courses
-            </Link>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      {/* Shared Footer */}
       <Footer />
     </div>
   );

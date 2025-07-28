@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import type { ReactNode } from 'react';
-import type { User, AuthState } from '@/types';
 import { AuthContext } from './AuthContext';
-import type { AuthContextType } from '@/types/auth';
+import type { AuthContextType } from '../types/auth';
+import type { User, AuthState } from '../types';
 
 const defaultAuthState: AuthState = {
   user: null,
@@ -14,7 +14,7 @@ const defaultAuthState: AuthState = {
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(defaultAuthState.user);
   const [isAuthenticated, setIsAuthenticated] = useState(defaultAuthState.isAuthenticated);
-  const isLoading = defaultAuthState.isLoading;
+  const [isLoading, setIsLoading] = useState(defaultAuthState.isLoading);
   const [error, setError] = useState<string | null>(defaultAuthState.error);
 
   const login = (user: User) => {
@@ -36,10 +36,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     error,
     login,
     logout,
+    setUser,
     setError,
+    setIsAuthenticated,
+    setIsLoading,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-// AuthContext is now exported from AuthContext.ts for Fast Refresh compatibility.
+export default AuthProvider;

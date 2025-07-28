@@ -1,7 +1,10 @@
 export interface AuthContextType extends AuthState {
   login: (user: User) => void;
   logout: () => void;
+  setUser: (user: User | null) => void;
   setError: (error: string | null) => void;
+  setIsAuthenticated: (isAuthenticated: boolean) => void;
+  setIsLoading: (isLoading: boolean) => void;
 }
 import type { User } from "./user";
 

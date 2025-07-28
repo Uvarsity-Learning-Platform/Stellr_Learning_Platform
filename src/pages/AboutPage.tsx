@@ -1,9 +1,6 @@
 import React from 'react';
 import Header from '../components/landing/Header';
 import Footer from '../components/landing/Footer';
-import { Link } from 'react-router-dom';
-import { FaLinkedin, FaFacebook, FaInstagram } from "react-icons/fa";
-import { BookOpen, Users, Award, Target, Heart, Globe } from 'lucide-react';
 import heroImg from '../assets/hero_about.png';
 import missionImg from '../assets/group_of_students.jpg';
 import africaImg from '../assets/africa.png';
@@ -264,60 +261,7 @@ const AboutPage: React.FC = () => {
 </div>
   </div>
 </section>
-<footer className="bg-white border-t border-gray border-[0.5px] py-12">
-  <div className="max-w-6xl mx-auto px-4 grid md:grid-cols-4 gap-8">
-    {/* Brand/Description */}
-    <div>
-      <h1 className="text-2xl font-bold text-gray-900 mb-2">Stellr</h1>
-      <p className="text-gray-600 text-sm">
-        Revolutionizing African education through practical design and tech skills, mentorship, and opportunity.
-      </p>
-    </div>
-    {/* Navigation Links */}
-    <div>
-      <h4 className="text-lg font-semibold text-gray-900 mb-2">Navigation Links</h4>
-      <ul className="space-y-1">
-        <li><Link to="/" className="text-gray-600 hover:text-primary-600">Home</Link></li>
-        <li><Link to="/courses" className="text-gray-600 hover:text-primary-600">Courses</Link></li>
-        <li><Link to="/about" className="text-gray-600 hover:text-primary-600">About Us</Link></li>
-        <li><Link to="/contact" className="text-gray-600 hover:text-primary-600">Contact Us</Link></li>
-      </ul>
-    </div>
-    {/* Courses */}
-    <div>
-      <h4 className="text-lg font-semibold text-gray-900 mb-2">Courses</h4>
-      <ul className="space-y-1">
-        <li className="text-gray-600">Web Development</li>
-        <li className="text-gray-600">User Experience Design (UX)</li>
-        <li className="text-gray-600">Brand Experience Design</li>
-        <li className="text-gray-600">Digital Marketing</li>
-        <li className="text-gray-600">Motion Design</li>
-        <li className="text-gray-600">Merch Design</li>
-      </ul>
-    </div>
-    {/* Contact */}
-    <div>
-      <h4 className="text-lg font-semibold text-gray-900 mb-2">Contact</h4>
-      <p className="text-gray-600 text-sm mb-1">123 Edu Way<br />Future City, FC 12345</p>
-      <p className="text-gray-600 text-sm mb-1">Email: info@uvarsity.com</p>
-      <p className="text-gray-600 text-sm mb-3">Phone: (123) 456-7890</p>
-      <div className="flex space-x-3">
-  <a href="#" className="text-primary-600 hover:text-primary-800"><FaLinkedin size={18} /></a>
-  <a href="#" className="text-primary-600 hover:text-primary-800"><FaFacebook size={18} /></a>
-  <a href="#" className="text-primary-600 hover:text-primary-800"><FaInstagram size={18} /></a>
-</div>
-    </div>
-  </div>
-
-  <div className="mx-auto mt-8" style={{ width: "1270px", height: "1px", background: "#A3A3A3" }} />
-  <div className="max-w-6xl mx-auto px-4 mt-8 flex flex-col md:flex-row justify-between items-center border-t border-gray-100 pt-6">
-    <p className="text-gray-500 text-sm">&copy; 2025 UvarsityEdu. All rights reserved.</p>
-    <div className="flex space-x-4 mt-2 md:mt-0">
-      <a href="#" className="text-gray-400 hover:text-primary-600 text-xs">Privacy Policy</a>
-      <a href="#" className="text-gray-400 hover:text-primary-600 text-xs">Terms of Service</a>
-    </div>
-  </div>
-</footer>
+<Footer/>
     </div>
   );
 };

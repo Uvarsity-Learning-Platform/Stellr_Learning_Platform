@@ -1,4 +1,3 @@
-// User type
 export interface User {
   id: string;
   firstName: string;
@@ -8,7 +7,7 @@ export interface User {
   avatar?: string;
   bio?: string;
   isOnboarded?: boolean;
-  enrolledCourses?: string[]; // Array of course IDs
+  enrolledCourses?: string[];
   certificates?: Certificate[];
   progress?: UserProgress[];
   createdAt?: string;
@@ -39,12 +38,12 @@ export interface Course {
   thumbnail?: string;
   thumbnailUrl?: string;
   instructor?: string | Instructor;
-  duration?: number; // in minutes
-  totalDuration?: number; // in minutes
+  duration?: number;
+  totalDuration?: number;
   studentsCount?: number;
   tags?: string[];
   enrolled?: boolean;
-  progress?: number; // 0-100
+  progress?: number;
   lessonsCount?: number;
   isPublished?: boolean;
   updatedAt?: string;
@@ -60,21 +59,21 @@ export interface Lesson {
   videoUrl?: string;
   pdfUrl?: string;
   content?: string;
-  duration?: number; // in minutes
+  duration?: number;
   order: number;
   completed: boolean;
   createdAt: string;
 }
 
-// Quiz type
+// Quiz types
 export interface Quiz {
   id: string;
   courseId: string;
   title: string;
   description?: string;
   questions: QuizQuestion[];
-  timeLimit?: number; // in minutes
-  passingScore: number; // percentage
+  timeLimit?: number;
+  passingScore: number;
   attempts: number;
   maxAttempts: number;
 }
@@ -84,7 +83,7 @@ export interface QuizQuestion {
   question: string;
   type: 'multiple-choice' | 'single-choice';
   options: string[];
-  correctAnswers: number[]; // indices of correct options
+  correctAnswers: number[];
   explanation?: string;
 }
 
@@ -92,7 +91,7 @@ export interface QuizAttempt {
   id: string;
   quizId: string;
   userId: string;
-  answers: Record<string, number[]>; // questionId -> selected option indices
+  answers: Record<string, number[]>;
   score: number;
   passed: boolean;
   startedAt: string;
@@ -108,14 +107,14 @@ export interface Certificate {
   studentName: string;
   completedAt: string;
   certificateUrl: string;
-  issuedAt?: string; // Added from original for flexibility
+  issuedAt?: string;
 }
 
 // Progress type
 export interface UserProgress {
   courseId: string;
   courseName: string;
-  progress: number; // 0-100
+  progress: number;
   completedLessons: number;
   totalLessons: number;
   lastAccessedAt: string;
@@ -159,12 +158,19 @@ export interface PaginatedResponse<T> {
   };
 }
 
-// App State types
+
+// Auth and App state
 export interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   error: string | null;
+}
+
+// AuthContextType for context value
+export interface AuthContextType extends AuthState {
+  login: (user: User) => void;
+  logout: () => void;
 }
 
 export interface AppState {

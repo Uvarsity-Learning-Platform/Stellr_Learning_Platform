@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../components/landing/Header';
 import Footer from '../components/landing/Footer';
-import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, MessageCircle, ArrowRight, Facebook, Linkedin, Twitter, Instagram } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Linkedin, Twitter, Instagram } from 'lucide-react';
 
 const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -107,18 +106,42 @@ const ContactPage: React.FC = () => {
               <div className="mt-8">
                 <p className="text-sm font-semibold text-gray-900 mb-4">Follow our social media</p>
                 <div className="flex space-x-3">
-                  <div className="bg-purple-600 rounded-full p-2 hover:bg-purple-700 cursor-pointer transition-colors">
+                  <a
+                    href="https://facebook.com/uvarsity"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-purple-600 rounded-full p-2 hover:bg-purple-700 cursor-pointer transition-colors"
+                    aria-label="Facebook"
+                  >
                     <Facebook className="w-5 h-5 text-white" />
-                  </div>
-                  <div className="bg-purple-600 rounded-full p-2 hover:bg-purple-700 cursor-pointer transition-colors">
+                  </a>
+                  <a
+                    href="https://linkedin.com/company/uvarsity"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-purple-600 rounded-full p-2 hover:bg-purple-700 cursor-pointer transition-colors"
+                    aria-label="LinkedIn"
+                  >
                     <Linkedin className="w-5 h-5 text-white" />
-                  </div>
-                  <div className="bg-purple-600 rounded-full p-2 hover:bg-purple-700 cursor-pointer transition-colors">
+                  </a>
+                  <a
+                    href="https://twitter.com/uvarsity"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-purple-600 rounded-full p-2 hover:bg-purple-700 cursor-pointer transition-colors"
+                    aria-label="Twitter"
+                  >
                     <Twitter className="w-5 h-5 text-white" />
-                  </div>
-                  <div className="bg-purple-600 rounded-full p-2 hover:bg-purple-700 cursor-pointer transition-colors">
+                  </a>
+                  <a
+                    href="https://instagram.com/uvarsity"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-purple-600 rounded-full p-2 hover:bg-purple-700 cursor-pointer transition-colors"
+                    aria-label="Instagram"
+                  >
                     <Instagram className="w-5 h-5 text-white" />
-                  </div>
+                  </a>
                 </div>
               </div>
             </div>

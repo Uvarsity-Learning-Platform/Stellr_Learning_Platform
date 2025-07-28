@@ -56,8 +56,8 @@ const Header: React.FC<HeaderProps> = () => {
             {!isRegister && (
               <Link
                 to="/register"
-                className="text-white px-4 py-2 rounded-lg font-medium transition-all"
-                style={{ background: '#7F23FF' }}
+                className="text-white px-4 py-2 rounded-lg font-medium transition-all bg-purple-600 hover:text-white hover:bg-purple-800 flex items-center justify-center"
+                
               >
                 Register
               </Link>

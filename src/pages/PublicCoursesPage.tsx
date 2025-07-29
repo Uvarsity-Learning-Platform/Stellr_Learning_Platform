@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, X } from 'lucide-react';
+import { Search, X, SlidersHorizontal } from 'lucide-react';
 import { CourseService } from '@/services/courseService';
 import type { Course } from '@/types';
-
-// Ensure Course type includes totalDuration
-// If not present in src/types/index.ts, add:
-// export interface Course { ... totalDuration?: number; ... }
 import Header from '@/components/landing/Header';
 import Footer from '@/components/landing/Footer';
 import courseImage from "@/assets/courses.png"
@@ -22,6 +18,7 @@ const PublicCoursesPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
   const coursesPerPage = 9;
 
   useEffect(() => {
@@ -175,75 +172,156 @@ const PublicCoursesPage: React.FC = () => {
       <Header />
 
       {/* Hero Section */}
-          <section className="relative p-32  overflow-hidden">
-  {/* Background Image */}
-  <img
-    src={courseImage}
-    alt="Courses background"
-    className="absolute inset-0 w-full h-full object-cover object-center max-h-[420px]"
-    style={{ top: 0, left: 0, right: 0, bottom: 0, margin: 'auto' }}
-  />
-
-  {/* Overlay */}
-  <div className="absolute inset-0 bg-black bg-opacity-50 z-0"></div>
-
-  {/* Text Content */}
-  <div className="relative z-10 flex flex-col items-center justify-center text-center text-white h-full px-4 sm:px-6 lg:px-8">
-   <h1 className="text-4xl md:text-5xl font-bold mb-4">Courses</h1>
-   <p className="text-lg md:text-xl max-w-2xl">
-    Learn job-ready design and tech skills—online, offline, and with real mentorship.
-   </p>
-  </div>
-
-  {/* Decorative Elements */}
-  <div className="absolute top-10 left-10 w-8 h-8 bg-orange-400 rounded-full opacity-50 z-10"></div>
-  <div className="absolute top-20 left-20 w-4 h-4 bg-white rounded z-10"></div>
-  <div className="absolute top-40 right-20 w-6 h-6 bg-white rotate-45 z-10"></div>
-  <div className="absolute bottom-10 right-10 w-6 h-6 bg-orange-400 rotate-45 opacity-50 z-10"></div>
-</section>
+      <section className="relative min-h-[420px] flex items-center bg-black">
+        <img
+          src={courseImage}
+          alt="Courses background"
+          className="absolute inset-0 w-full h-full object-cover opacity-70"
+        />
+        <div className="relative z-10 max-w-4xl mx-auto px-4 py-20">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4 leading-tight">
+            Courses
+          </h1>
+          <p className="text-lg md:text-xl text-white/90 mb-2 max-w-2xl">
+            Learn job-ready design and tech skills—online, offline, and with real mentorship.
+          </p>
+        </div>
+      </section>
 
       {/* Search and Filters */}
-      <section className="py-8 
-       text-white">
+      <section className="py-4 sm:py-6 lg:py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="p-4 rounded-lg mb-4 flex flex-col sm:flex-row items-center gap-4">
-            <div className="flex-1 flex flex-wrap items-center gap-2">
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="mr-1 sm:mr-4 p-2 bg-gray-200 text-gray-900 border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
-              >
-                {sortOptions.map((option) => (
-                  <option key={option} value={option} className="text-gray-600">{option}</option>
-                ))}
-              </select>
-              <div className="relative flex-1 min-w-[180px]">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pr-10 pl-4 py-2 bg-gray-200 text-gray-900 border-none rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 placeholder-gray-600"
-                />
-                <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600" size={20} />
-              </div>
-              <div className="flex flex-wrap gap-2 ml-2">
-                {categories.map((category) => (
-                  <button
-                    key={category}
-                    onClick={() => setSelectedCategory(category)}
-                    className={`my-4 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                      selectedCategory === category
-                        ? 'bg-purple-600 text-white'
-                        : 'bg-gray-200 text-gray-900 hover:bg-gray-500'
-                    }`}
+          {/* Mobile Filter Toggle */}
+          <div className="flex items-center justify-between mb-4 sm:hidden">
+            <h2 className="text-lg font-semibold text-gray-900">Courses</h2>
+            <button
+              onClick={() => setShowMobileFilters(!showMobileFilters)}
+              className="flex items-center gap-2 px-3 py-2 bg-gray-200 rounded-lg text-gray-700"
+            >
+              <SlidersHorizontal size={16} />
+              Filters
+            </button>
+          </div>
+
+          {/* Desktop Filters */}
+          <div className="hidden sm:block">
+            <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
+              <div className="flex flex-col lg:flex-row gap-4">
+                {/* Sort Dropdown */}
+                <div className="flex-shrink-0">
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                    className="w-full lg:w-auto px-3 py-2 bg-gray-100 text-gray-900 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                   >
-                    {category}
-                  </button>
-                ))}
+                    {sortOptions.map((option) => (
+                      <option key={option} value={option}>{option}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Search Bar */}
+                <div className="relative flex-1 ml-2">
+                  <input
+                    type="text"
+                    placeholder="Search courses..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full pr-10 pl-4 py-2 bg-gray-100 text-gray-900 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent placeholder-gray-500"
+                  />
+                  <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+                </div>
+              </div>
+
+              {/* Category Filters */}
+              <div className="mt-4">
+                <div className="flex flex-wrap gap-2">
+                  {categories.map((category) => (
+                    <button
+                      key={category}
+                      onClick={() => setSelectedCategory(category)}
+                      className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                        selectedCategory === category
+                          ? 'bg-purple-600 text-white'
+                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      }`}
+                    >
+                      {category}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
+
+          {/* Mobile Filters Panel */}
+          {showMobileFilters && (
+            <div className="sm:hidden bg-white rounded-lg shadow-lg mb-4 border border-gray-200">
+              <div className="p-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold text-gray-900">Filters</h3>
+                  <button
+                    onClick={() => setShowMobileFilters(false)}
+                    className="text-gray-500 hover:text-gray-700"
+                  >
+                    <X size={20} />
+                  </button>
+                </div>
+
+                {/* Mobile Sort */}
+                <div className="mb-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Sort by</label>
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                    className="w-full px-3 py-2 bg-gray-100 text-gray-900 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
+                  >
+                    {sortOptions.map((option) => (
+                      <option key={option} value={option}>{option}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Mobile Search */}
+                <div className="mb-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Search</label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder="Search courses..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="w-full pr-10 pl-4 py-2 bg-gray-100 text-gray-900 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 placeholder-gray-500"
+                    />
+                    <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+                  </div>
+                </div>
+
+                {/* Mobile Categories */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                  <div className="flex flex-wrap gap-2">
+                    {categories.map((category) => (
+                      <button
+                        key={category}
+                        onClick={() => {
+                          setSelectedCategory(category);
+                          setShowMobileFilters(false);
+                        }}
+                        className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                          selectedCategory === category
+                            ? 'bg-purple-600 text-white'
+                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        }`}
+                      >
+                        {category}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 

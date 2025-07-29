@@ -8,11 +8,10 @@ import { z } from 'zod';
 import { Eye, EyeOff } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { AuthService } from '@/services/authService';
+import { useAuthStore } from '@/store/authStore';
 import loginImage from '@/assets/login_image.png';
 import Header from '@/components/landing/Header';
 import Footer from '@/components/landing/Footer';
-
-
 
 const loginSchema = z.object({
   emailOrPhone: z.string().min(1, 'Email or phone is required'),
@@ -27,7 +26,7 @@ const LoginPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   
   const navigate = useNavigate();
-  // const { login } = useAuthStore();
+  const { login } = useAuthStore();
 
   const {
     register,
@@ -50,26 +49,35 @@ const LoginPage: React.FC = () => {
 
   const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
-    
     try {
-      // If phone number, redirect to OTP verification
-      if (loginMethod === 'phone') {
-        await AuthService.sendOTP(data.emailOrPhone);
-        navigate('/auth/verify-otp', { 
-          state: { phone: data.emailOrPhone } 
-        });
-        toast.success('OTP sent to your phone');
-        return;
-      }
+      // --- Real Auth Logic (to restore when backend is ready) ---
+      // // If phone number, redirect to OTP verification
+      // if (loginMethod === 'phone') {
+      //   await AuthService.sendOTP(data.emailOrPhone);
+      //   navigate('/auth/verify-otp', { 
+      //     state: { phone: data.emailOrPhone } 
+      //   });
+      //   toast.success('OTP sent to your phone');
+      //   return;
+      // }
+      // // Email login
+      // const response = await AuthService.login(data);
+      // if (response.success) {
+      //   login(response.data.user);
+      //   toast.success('Welcome back!');
+      //   navigate('/app/dashboard');
+      // }
 
-      // Email login
-      const response = await AuthService.login(data);
-      
-      if (response.success) {
-        // login(response.data.user); // Do not set auth state here for landing-style login
-        toast.success('Welcome back!');
-        navigate('/app/dashboard');
-      }
+      // --- Mock login: set auth state so ProtectedRoute allows access ---
+      login({
+        id: 'mock-id',
+        firstName: 'Demo',
+        lastName: 'User',
+        email: data.emailOrPhone.includes('@') ? data.emailOrPhone : '',
+        phone: data.emailOrPhone.includes('@') ? '' : data.emailOrPhone,
+      });
+      navigate('/app/dashboard', { replace: true });
+      toast.success('Welcome back!');
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : 'Login failed';
       toast.error(errorMessage);
@@ -98,60 +106,61 @@ const LoginPage: React.FC = () => {
 
         {/* Right Side - Login Form (Custom Design) */}
         <div className="w-[478px] h-[593px] p-3 bg-white rounded-tr-lg rounded-br-lg inline-flex flex-col justify-center items-center gap-6 overflow-hidden">
-       <div className="w-32 h-9 relative">
-{/* Logo or graphic can go here */}
-<h2 className="text-2xl font-bold text-gray-800">Stellr</h2>
-</div>
+        <div className="w-32 h-9 relative text-center mb-2">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">stellr</h1>
+        </div>
           <div className="w-96 flex flex-col justify-start items-center gap-4">
             <div className="self-stretch flex flex-col justify-center items-start gap-4">
               
                 <div className="w-52 flex flex-col justify-start items-start">
 
-                  <div className="self-stretch justify-start text-slate-950 text-xl font-semibold font-['Roboto'] leading-loose">Welcome Back</div>
-                  <div className="self-stretch justify-start text-slate-950 text-xs font-normal font-['Roboto'] leading-none">Continue your journey with us</div>
+                  <div className="self-stretch text-xl font-semibold text-gray-800 mb-2">Welcome Back</div>
+                  <div className="self-stretch text-sm text-gray-600 mb-2">Continue your journey with us</div>
                 </div>
-                <form onSubmit={handleSubmit(onSubmit)} className="self-stretch flex flex-col justify-start items-start gap-8">
-                  <div className="self-stretch h-14 relative opacity-80 flex flex-col justify-start items-start gap-2">
-                    <label className="justify-start text-slate-950 text-xs font-normal font-['Roboto'] leading-none">Email Address *</label>
+                <form onSubmit={handleSubmit(onSubmit)} className="self-stretch flex flex-col justify-start items-start gap-4">
+                  <div className="self-stretch flex flex-col justify-start items-start gap-2">
+                    <label className="block text-sm text-gray-600 mb-1">Email Address <span className="text-red-500">*</span></label>
                     <input
                       {...register('emailOrPhone')}
                       type="email"
                       placeholder="you@example.com"
-                      className="self-stretch h-8 px-4 py-3 rounded outline outline-1 outline-offset-[-0.50px] outline-neutral-400 text-neutral-600 text-sm font-normal font-['Roboto'] leading-tight"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500"
                     />
                     {errors.emailOrPhone && (
                       <p className="mt-1 text-xs text-red-600">{errors.emailOrPhone.message}</p>
                     )}
-                    <Link to="/auth/forgot-password" className="left-[276px] top-[66px] absolute justify-start text-neutral-600 text-xs font-normal font-['Roboto'] leading-none hover:underline">
-                      Forgot password?
-                    </Link>
                   </div>
-                  <div className="self-stretch h-14 opacity-80 flex flex-col justify-start items-start gap-2">
-                    <label className="justify-start text-slate-950 text-xs font-normal font-['Roboto'] leading-none">Password *</label>
-                    <div className="self-stretch h-8 px-4 py-3 rounded outline outline-1 outline-offset-[-0.50px] outline-neutral-400 inline-flex justify-start items-center gap-2.5 overflow-hidden relative">
+                  <div className="self-stretch flex flex-col justify-start items-start gap-2">
+                    <label className="block text-sm text-gray-600 mb-1">Password <span className="text-red-500">*</span></label>
+                    <div className="relative w-full">
                       <input
                         {...register('password')}
                         type={showPassword ? 'text' : 'password'}
                         placeholder="********"
-                        className="w-full bg-transparent border-none outline-none text-neutral-600 text-sm font-normal font-['Roboto'] leading-tight"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500"
                       />
                       <button
                         type="button"
-                        className="absolute right-2 top-1/2 -translate-y-1/2"
+                        className="absolute inset-y-0 right-0 pr-3 flex items-center"
                         onClick={() => setShowPassword(!showPassword)}
                         tabIndex={-1}
                         aria-label={showPassword ? 'Hide password' : 'Show password'}
                       >
                         {showPassword ? (
-                          <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                          <EyeOff className="h-4 w-4 text-gray-400" />
                         ) : (
-                          <Eye className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                          <Eye className="h-4 w-4 text-gray-400" />
                         )}
                       </button>
                     </div>
                     {errors.password && (
                       <p className="mt-1 text-xs text-red-600">{errors.password.message}</p>
                     )}
+                    <div className="w-full flex justify-end mt-1">
+                      <Link to="/auth/forgot-password" className="text-purple-600 text-xs font-semibold leading-none hover:underline">
+                        Forgot password?
+                      </Link>
+                    </div>
                   </div>
                   <div className="inline-flex justify-start items-center gap-2">
                     <input
@@ -159,21 +168,21 @@ const LoginPage: React.FC = () => {
                       id="remember-me"
                       className="w-3 h-3 rounded-sm border border-neutral-400"
                     />
-                    <label htmlFor="remember-me" className="justify-center text-slate-950 text-[10px] font-normal font-['Roboto'] leading-none ml-1">
+                    <label htmlFor="remember-me" className="text-xs font-medium text-gray-600 ml-1">
                       Remember Me
                     </label>
                   </div>
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="self-stretch h-12 px-8 py-4 bg-violet-600 rounded-lg shadow-[0px_8px_12px_0px_rgba(127,35,255,0.16)] inline-flex justify-center items-center gap-2 text-white text-base font-normal font-['roboto'] leading-relaxed hover:bg-violet-700 transition-colors"
+                    className="w-full bg-purple-600 text-white py-3 rounded-md hover:bg-purple-700 transition-colors disabled:bg-purple-300 flex items-center justify-center font-medium"
                   >
                     {isLoading ? 'Signing In...' : 'Log In'}
                   </button>
                   <div className="self-stretch h-0.5 bg-neutral-400 rounded-lg" />
                   <div className="inline-flex justify-center items-center gap-1 w-full">
-                    <span className="justify-center text-slate-950 text-xs font-normal font-['roboto'] leading-none">Don’t have an account?</span>
-                    <Link to="/register" className="justify-center text-amber-500 text-xs font-normal font-['roboto'] underline leading-none">
+                    <span className="text-sm text-gray-600">Don't have an account?</span>
+                    <Link to="/register" className="text-purple-600 text-sm font-medium hover:underline leading-none">
                       Register
                     </Link>
                   </div>

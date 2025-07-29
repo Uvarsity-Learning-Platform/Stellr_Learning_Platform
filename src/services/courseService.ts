@@ -1,3 +1,5 @@
+
+
 import { apiClient } from './apiClient';
 import type { ApiResponse, Course, Lesson, PaginatedResponse } from '@/types';
 
@@ -140,6 +142,26 @@ export class CourseService {
         success: false,
         data: [],
         error: 'Failed to fetch course categories',
+      };
+    }
+  }
+
+  /**
+   * Get all courses a specific user is enrolled in (by userId)
+   */
+  static async getUserCourses(userId: string): Promise<ApiResponse<Course[]>> {
+    try {
+      const response = await apiClient.get<{ enrollments: Array<{ course: Record<string, unknown> }> }>(`/users/${userId}/courses`);
+      return {
+        success: true,
+        data: response.enrollments.map(enrollment => this.transformCourse(enrollment.course)),
+      };
+    } catch (error) {
+      console.error('Error fetching user courses:', error);
+      return {
+        success: false,
+        data: [],
+        error: 'Failed to fetch user courses',
       };
     }
   }

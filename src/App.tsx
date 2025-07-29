@@ -20,6 +20,7 @@ import LessonPage from '@/pages/course/LessonPage';
 import QuizPage from '@/pages/quiz/QuizPage';
 import CertificatesPage from '@/pages/certificate/CertificatesPage';
 import SettingsPage from '@/pages/settings/SettingsPage';
+import MyCoursesPage from '@/pages/course/MyCoursesPage';
 
 // Route Guards
 import ProtectedRoute from '@/components/auth/ProtectedRoute';
@@ -93,6 +94,7 @@ function App() {
             <Route path="courses/:courseId/quiz" element={<QuizPage />} />
             <Route path="certificates" element={<CertificatesPage />} />
             <Route path="settings" element={<SettingsPage />} />
+            <Route path="my-courses" element={<MyCoursesPage />} />
           </Route>
 
           {/* Legacy Routes Redirect */}

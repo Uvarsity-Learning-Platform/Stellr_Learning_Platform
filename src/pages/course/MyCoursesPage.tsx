@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, X,  SlidersHorizontal } from 'lucide-react';
+import { Search, X, SlidersHorizontal } from 'lucide-react';
 import { CourseService } from '@/services/courseService';
 import type { Course } from '@/types';
 
@@ -8,7 +8,7 @@ import type { Course } from '@/types';
 const categories = ['All', 'Web Development', 'Digital Marketing', 'Brand Experience Design', 'User Experience Design (UX)', 'Motion Design', 'Merch Design'];
 const sortOptions = ['Most Popular', 'Newest', 'Price: Low to High', 'Price: High to Low'];
 
-const CourseCatalogPage: React.FC = () => {
+const MyCoursesPage: React.FC = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -20,28 +20,20 @@ const CourseCatalogPage: React.FC = () => {
   const coursesPerPage = 9;
 
   useEffect(() => {
-    const fetchCoursesWrapper = async () => {
+    const fetchMyCourses = async () => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await CourseService.getCourses(
-          currentPage,
-          coursesPerPage,
-          selectedCategory !== 'All' ? selectedCategory : undefined,
-          searchTerm || undefined
-        );
+        const response = await CourseService.getEnrolledCourses();
         setCourses(response.data);
-      } catch (error) {
-        console.error('Error fetching courses:', error);
-        setError('Network error. Please check your connection and try again.');
-        setCourses([]);
+      } catch {
+        setError('Failed to load your courses.');
       } finally {
         setIsLoading(false);
       }
     };
-
-    fetchCoursesWrapper();
-  }, [selectedCategory, searchTerm, currentPage]);
+    fetchMyCourses();
+  }, []);
 
   // Filter by category
   let filteredCourses = courses;
@@ -101,6 +93,7 @@ const CourseCatalogPage: React.FC = () => {
     const instructorAvatar = typeof course.instructor === 'object' ? course.instructor.avatar : '/api/placeholder/40/40';
     const price = (course as { price?: number }).price || 0;
     const duration = course.duration || course.totalDuration || 0;
+    const progress = course.progress || 0; // Assuming a progress field, default to 0 if undefined
 
     return (
       <div key={course.id} className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
@@ -118,6 +111,19 @@ const CourseCatalogPage: React.FC = () => {
           </div>
           <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 line-clamp-2">{course.title}</h3>
           <p className="text-gray-600 text-sm mb-3 sm:mb-4 line-clamp-2">{course.description}</p>
+          {/* Progress Bar */}
+          <div className="mb-3 sm:mb-4">
+            <div className="flex justify-between text-xs text-gray-600 mb-1">
+              <span>Progress</span>
+              <span>{progress}%</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2">
+              <div
+                className="bg-purple-600 h-2 rounded-full transition-all duration-300"
+                style={{ width: `${progress}%` }}
+              ></div>
+            </div>
+          </div>
           <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 flex-wrap">
             <img
               src={instructorAvatar}
@@ -135,7 +141,7 @@ const CourseCatalogPage: React.FC = () => {
               to={`/app/courses/${course.id}`} 
               className="text-xs sm:text-sm text-purple-600 font-medium hover:underline px-2 py-1 rounded transition-colors hover:bg-purple-50"
             >
-              View Course
+              Go to Course
             </Link>
           </div>
         </div>
@@ -153,6 +159,15 @@ const CourseCatalogPage: React.FC = () => {
         </div>
         <div className="bg-gray-200 h-5 sm:h-6 w-3/4 rounded mb-2 animate-pulse"></div>
         <div className="bg-gray-200 h-4 w-full rounded mb-3 sm:mb-4 animate-pulse"></div>
+        <div className="mb-3 sm:mb-4">
+          <div className="flex justify-between text-xs text-gray-200 mb-1">
+            <span>Progress</span>
+            <span>0%</span>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-2">
+            <div className="bg-gray-300 h-2 rounded-full"></div>
+          </div>
+        </div>
         <div className="flex items-center justify-between">
           <div className="bg-gray-200 h-5 sm:h-6 w-16 rounded animate-pulse"></div>
           <div className="bg-gray-200 h-6 sm:h-8 w-20 sm:w-24 rounded animate-pulse"></div>
@@ -168,12 +183,13 @@ const CourseCatalogPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      
       {/* Search and Filters */}
       <section className="py-4 sm:py-6 lg:py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Mobile Filter Toggle */}
           <div className="flex items-center justify-between mb-4 sm:hidden">
-            <h2 className="text-lg font-semibold text-gray-900">Courses</h2>
+            <h2 className="text-lg font-semibold text-gray-900">My Courses</h2>
             <button
               onClick={() => setShowMobileFilters(!showMobileFilters)}
               className="flex items-center gap-2 px-3 py-2 bg-gray-200 rounded-lg text-gray-700"
@@ -204,7 +220,7 @@ const CourseCatalogPage: React.FC = () => {
                 <div className="relative flex-1 max-w-md">
                   <input
                     type="text"
-                    placeholder="Search courses..."
+                    placeholder="Search my courses..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="w-full pr-10 pl-4 py-2 bg-gray-100 text-gray-900 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent placeholder-gray-500"
@@ -268,7 +284,7 @@ const CourseCatalogPage: React.FC = () => {
                   <div className="relative">
                     <input
                       type="text"
-                      placeholder="Search courses..."
+                      placeholder="Search my courses..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                       className="w-full pr-10 pl-4 py-2 bg-gray-100 text-gray-900 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 placeholder-gray-500"
@@ -430,8 +446,9 @@ const CourseCatalogPage: React.FC = () => {
           </div>
         </div>
       )}
+      
     </div>
   );
 };
 
-export default CourseCatalogPage;
+export default MyCoursesPage;	

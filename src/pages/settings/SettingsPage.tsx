@@ -39,16 +39,14 @@ const SettingsPage: React.FC = () => {
   const [notifications, setNotifications] = useState({
     courseUpdates: true,
     newCourses: true,
+    certificateEarnedAlerts: true,
     achievements: true,
-    reminders: true,
-    marketing: false,
+    reminders: false,
   });
 
   // Privacy settings
   const [privacy, setPrivacy] = useState({
-    profileVisibility: 'public',
-    activityVisibility: 'friends',
-    allowMessages: true,
+    allowMessages: false,
     allowNotifications: true,
   });
 
@@ -117,157 +115,185 @@ const SettingsPage: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Settings</h1>
-        <p className="text-gray-600">Manage your account settings and preferences</p>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        {/* Sidebar */}
-        <div className="lg:col-span-1">
-          <div className="card p-4">
-            <nav className="space-y-2">
-              {tabs.map((tab) => {
-                const Icon = tab.icon;
-                return (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id as 'profile' | 'account' | 'notifications' | 'privacy')}
-                    className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-colors ${
-                      activeTab === tab.id
-                        ? 'bg-primary-50 text-primary-600 border border-primary-200'
-                        : 'text-gray-700 hover:bg-gray-50'
-                    }`}
-                  >
-                    <Icon className="w-5 h-5" />
-                    <span className="font-medium">{tab.label}</span>
-                  </button>
-                );
-              })}
-            </nav>
-          </div>
+    <div className="min-h-screen bg-gray-50 p-4 sm:p-6 lg:p-8">
+      <div className="max-w-7xl mx-auto space-y-6">
+        <div className="text-center lg:text-left">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Settings</h1>
+          <p className="text-gray-600">Manage your account settings and preferences</p>
         </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          {/* Sidebar */}
+          <div className="lg:col-span-1">
+            <div className="card p-4">
+              {/* Mobile: Horizontal scroll tabs */}
+              <div className="lg:hidden">
+                <div className="flex space-x-2 overflow-x-auto pb-2">
+                  {tabs.map((tab) => {
+                    const Icon = tab.icon;
+                    return (
+                      <button
+                        key={tab.id}
+                        onClick={() => setActiveTab(tab.id as 'profile' | 'account' | 'notifications' | 'privacy')}
+                        className={`flex-shrink-0 flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                          activeTab === tab.id
+                            ? 'bg-purple-100 text-purple-600 border border-purple-200'
+                            : 'text-gray-700 hover:bg-gray-50'
+                        }`}
+                      >
+                        <Icon className="w-4 h-4" />
+                        <span>{tab.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+              
+              {/* Desktop: Vertical nav */}
+              <nav className="hidden lg:block space-y-2">
+                {tabs.map((tab) => {
+                  const Icon = tab.icon;
+                  return (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id as 'profile' | 'account' | 'notifications' | 'privacy')}
+                      className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-colors ${
+                        activeTab === tab.id
+                          ? 'bg-purple-50 text-purple-600 border border-purple-200'
+                          : 'text-gray-700 hover:bg-gray-50'
+                      }`}
+                    >
+                      <Icon className="w-5 h-5" />
+                      <span className="font-medium">{tab.label}</span>
+                    </button>
+                  );
+                })}
+              </nav>
+            </div>
+          </div>
 
         {/* Main Content */}
         <div className="lg:col-span-3">
           {/* Profile Tab */}
           {activeTab === 'profile' && (
-            <div className="card p-6">
+            <div className="card p-4 sm:p-6">
               <div className="mb-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-2">Profile Information</h2>
-                <p className="text-gray-600">Update your personal information and profile picture</p>
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">Profile Information</h2>
+                <p className="text-sm sm:text-base text-gray-600">Update your personal information and profile picture</p>
               </div>
 
               <form onSubmit={handleProfileSubmit} className="space-y-6">
-                {/* Profile Picture */}
-                <div className="flex items-center space-x-6">
-                  <div className="relative">
-                    <div className="w-24 h-24 bg-primary-100 rounded-full flex items-center justify-center">
-                      {profileData.avatar ? (
-                        <img 
-                          src={profileData.avatar} 
-                          alt="Profile" 
-                          className="w-24 h-24 rounded-full object-cover"
-                        />
-                      ) : (
-                        <User className="w-12 h-12 text-primary-600" />
-                      )}
+                {/* Profile Header with Avatar and Actions */}
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between space-y-4 sm:space-y-0 mb-8">
+                  <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-4">
+                    <div className="relative">
+                      <div className="w-20 h-20 bg-orange-500 rounded-full flex items-center justify-center">
+                        {profileData.avatar ? (
+                          <img 
+                            src={profileData.avatar} 
+                            alt="Profile" 
+                            className="w-20 h-20 rounded-full object-cover"
+                          />
+                        ) : (
+                          <span className="text-white text-2xl font-bold">
+                            {profileData.firstName?.[0] || 'J'}
+                          </span>
+                        )}
+                      </div>
+                      <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-gray-800 rounded-full flex items-center justify-center">
+                        <Camera className="w-3 h-3 text-white" />
+                      </div>
                     </div>
+                    <div className="text-center sm:text-left">
+                      <h3 className="text-lg sm:text-xl font-semibold text-gray-900">
+                        {profileData.firstName || 'John'} {profileData.lastName || 'Doe'}
+                      </h3>
+                      <p className="text-sm sm:text-base text-gray-600">{profileData.email || 'johndoe@gmail.com'}</p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 w-full sm:w-auto">
                     <button
                       type="button"
-                      className="absolute bottom-0 right-0 w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center hover:bg-primary-700 transition-colors"
+                      className="px-4 py-2 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors text-sm sm:text-base"
                     >
-                      <Camera className="w-4 h-4 text-white" />
+                      Mark as Completed
                     </button>
-                  </div>
-                  <div>
-                    <button type="button" className="btn-outline">
-                      <Edit2 className="w-4 h-4 mr-2" />
-                      Change Photo
+                    <button
+                      type="button"
+                      className="px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors text-sm sm:text-base"
+                    >
+                      Delete
                     </button>
-                    <p className="text-sm text-gray-500 mt-1">
-                      JPG, PNG or GIF. Max size of 5MB.
-                    </p>
                   </div>
                 </div>
 
                 {/* Personal Information */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      First Name
+                      Full Name <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
                       value={profileData.firstName}
                       onChange={(e) => setProfileData(prev => ({ ...prev, firstName: e.target.value }))}
-                      className="input-field"
-                      placeholder="Enter your first name"
+                      className="w-full px-3 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm sm:text-base"
+                      placeholder="John Doe"
                     />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Last Name
+                      Last Name <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
                       value={profileData.lastName}
                       onChange={(e) => setProfileData(prev => ({ ...prev, lastName: e.target.value }))}
-                      className="input-field"
-                      placeholder="Enter your last name"
+                      className="w-full px-3 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm sm:text-base"
+                      placeholder="John Doe"
                     />
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Email Address
+                    Email
                   </label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-                    <input
-                      type="email"
-                      value={profileData.email}
-                      onChange={(e) => setProfileData(prev => ({ ...prev, email: e.target.value }))}
-                      className="input-field pl-10"
-                      placeholder="Enter your email"
-                    />
-                  </div>
+                  <input
+                    type="email"
+                    value={profileData.email}
+                    onChange={(e) => setProfileData(prev => ({ ...prev, email: e.target.value }))}
+                    className="w-full px-3 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm sm:text-base"
+                    placeholder="johndoe@gmail.com"
+                  />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Phone Number
+                    Phone Number <span className="text-red-500">*</span>
                   </label>
-                  <div className="relative">
-                    <Phone className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-                    <input
-                      type="tel"
-                      value={profileData.phone}
-                      onChange={(e) => setProfileData(prev => ({ ...prev, phone: e.target.value }))}
-                      className="input-field pl-10"
-                      placeholder="Enter your phone number"
-                    />
-                  </div>
+                  <input
+                    type="tel"
+                    value={profileData.phone}
+                    onChange={(e) => setProfileData(prev => ({ ...prev, phone: e.target.value }))}
+                    className="w-full px-3 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm sm:text-base"
+                    placeholder="+233 123 4567"
+                  />
                 </div>
 
-                <div className="flex justify-end">
+                <div className="flex justify-end pt-4">
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="btn-primary"
+                    className="w-full sm:w-auto px-6 py-2 sm:py-3 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors text-sm sm:text-base"
                   >
                     {isLoading ? (
                       <>
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                        <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
                         Saving...
                       </>
                     ) : (
-                      <>
-                        <Save className="w-5 h-5 mr-2" />
-                        Save Changes
-                      </>
+                      'Save Changes'
                     )}
                   </button>
                 </div>
@@ -279,13 +305,13 @@ const SettingsPage: React.FC = () => {
           {activeTab === 'account' && (
             <div className="space-y-6">
               {/* Change Password */}
-              <div className="card p-6">
+              <div className="card p-4 sm:p-6">
                 <div className="mb-6">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-2">Change Password</h2>
-                  <p className="text-gray-600">Update your password to keep your account secure</p>
+                  <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">Change Password</h2>
+                  <p className="text-sm sm:text-base text-gray-600">Update your password to keep your account secure</p>
                 </div>
 
-                <form onSubmit={handlePasswordSubmit} className="space-y-6">
+                <form onSubmit={handlePasswordSubmit} className="space-y-4 sm:space-y-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Current Password
@@ -294,7 +320,7 @@ const SettingsPage: React.FC = () => {
                       type="password"
                       value={passwordData.currentPassword}
                       onChange={(e) => setPasswordData(prev => ({ ...prev, currentPassword: e.target.value }))}
-                      className="input-field"
+                      className="w-full px-3 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm sm:text-base"
                       placeholder="Enter current password"
                     />
                   </div>
@@ -307,30 +333,30 @@ const SettingsPage: React.FC = () => {
                       type="password"
                       value={passwordData.newPassword}
                       onChange={(e) => setPasswordData(prev => ({ ...prev, newPassword: e.target.value }))}
-                      className="input-field"
+                      className="w-full px-3 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm sm:text-base"
                       placeholder="Enter new password"
                     />
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Confirm New Password
+                      Confirm Password
                     </label>
                     <input
                       type="password"
                       value={passwordData.confirmPassword}
                       onChange={(e) => setPasswordData(prev => ({ ...prev, confirmPassword: e.target.value }))}
-                      className="input-field"
-                      placeholder="Confirm new password"
+                      className="w-full px-3 py-2 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm sm:text-base"
+                      placeholder="confirm new password"
                     />
                   </div>
 
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                    <div className="flex items-start space-x-3">
-                      <AlertCircle className="w-5 h-5 text-blue-600 mt-0.5" />
+                  <div className="bg-blue-600 border border-blue-600 rounded-lg p-3 sm:p-4">
+                    <div className="flex flex-col sm:flex-row sm:items-start space-y-2 sm:space-y-0 sm:space-x-3">
+                      <AlertCircle className="w-5 h-5 text-white flex-shrink-0 mt-0.5" />
                       <div>
-                        <p className="text-sm font-medium text-blue-900">Password Requirements:</p>
-                        <ul className="text-sm text-blue-800 mt-1 space-y-1">
+                        <p className="text-sm font-medium text-white">Password requirements:</p>
+                        <ul className="text-xs sm:text-sm text-white mt-1 space-y-1">
                           <li>• At least 8 characters long</li>
                           <li>• Contains uppercase and lowercase letters</li>
                           <li>• Contains at least one number</li>
@@ -344,18 +370,15 @@ const SettingsPage: React.FC = () => {
                     <button
                       type="submit"
                       disabled={isLoading}
-                      className="btn-primary"
+                      className="w-full sm:w-auto px-6 py-2 sm:py-3 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors text-sm sm:text-base"
                     >
                       {isLoading ? (
                         <>
-                          <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                          <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
                           Updating...
                         </>
                       ) : (
-                        <>
-                          <Lock className="w-5 h-5 mr-2" />
-                          Update Password
-                        </>
+                        'Update Password'
                       )}
                     </button>
                   </div>
@@ -363,29 +386,19 @@ const SettingsPage: React.FC = () => {
               </div>
 
               {/* Account Actions */}
-              <div className="card p-6">
+              <div className="card p-4 sm:p-6">
                 <div className="mb-6">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-2">Account Actions</h2>
-                  <p className="text-gray-600">Manage your account settings and data</p>
+                  <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">Account action</h2>
+                  <p className="text-sm sm:text-base text-gray-600">Manage your account settings and data</p>
                 </div>
 
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 bg-orange-50 border border-orange-200 rounded-lg space-y-3 sm:space-y-0">
                     <div>
-                      <h3 className="font-medium text-gray-900">Download Your Data</h3>
-                      <p className="text-sm text-gray-600">Export your course progress and personal data</p>
+                      <h3 className="font-medium text-gray-900">Delete Account</h3>
+                      <p className="text-sm text-gray-600">Permanently delete your account and all data</p>
                     </div>
-                    <button className="btn-outline">
-                      Export Data
-                    </button>
-                  </div>
-
-                  <div className="flex items-center justify-between p-4 bg-red-50 rounded-lg">
-                    <div>
-                      <h3 className="font-medium text-red-900">Delete Account</h3>
-                      <p className="text-sm text-red-600">Permanently delete your account and all data</p>
-                    </div>
-                    <button className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+                    <button className="w-full sm:w-auto px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-lg transition-colors text-sm sm:text-base">
                       Delete Account
                     </button>
                   </div>
@@ -396,113 +409,132 @@ const SettingsPage: React.FC = () => {
 
           {/* Notifications Tab */}
           {activeTab === 'notifications' && (
-            <div className="card p-6">
+            <div className="card p-4 sm:p-6">
               <div className="mb-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-2">Notification Preferences</h2>
-                <p className="text-gray-600">Choose what notifications you want to receive</p>
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">Notification Preferences</h2>
+                <p className="text-sm sm:text-base text-gray-600">Choose what notifications you want to receive</p>
               </div>
 
-              <div className="space-y-6">
-                {Object.entries(notifications).map(([key, value]) => (
-                  <div key={key} className="flex items-center justify-between">
-                    <div>
-                      <h3 className="font-medium text-gray-900 capitalize">
-                        {key.replace(/([A-Z])/g, ' $1').trim()}
-                      </h3>
-                      <p className="text-sm text-gray-600">
-                        {key === 'courseUpdates' && 'Get notified about course updates and new content'}
-                        {key === 'newCourses' && 'Be the first to know about new courses'}
-                        {key === 'achievements' && 'Celebrate your progress and achievements'}
-                        {key === 'reminders' && 'Helpful reminders to continue your learning'}
-                        {key === 'marketing' && 'Occasional promotional emails and offers'}
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => handleNotificationUpdate(key as keyof typeof notifications, !value)}
-                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                        value ? 'bg-primary-600' : 'bg-gray-200'
-                      }`}
-                    >
-                      <span
-                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                          value ? 'translate-x-6' : 'translate-x-1'
-                        }`}
-                      />
-                    </button>
+              <div className="space-y-4 sm:space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
+                  <div className="flex-1">
+                    <h3 className="font-medium text-gray-900">Course Updates</h3>
+                    <p className="text-sm text-gray-600">
+                      Get notified about course updates and new contentUpdates
+                    </p>
                   </div>
-                ))}
+                  <button
+                    onClick={() => handleNotificationUpdate('courseUpdates', !notifications.courseUpdates)}
+                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors flex-shrink-0 ${
+                      notifications.courseUpdates ? 'bg-purple-600' : 'bg-gray-200'
+                    }`}
+                  >
+                    <span
+                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                        notifications.courseUpdates ? 'translate-x-6' : 'translate-x-1'
+                      }`}
+                    />
+                  </button>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
+                  <div className="flex-1">
+                    <h3 className="font-medium text-gray-900">New Courses</h3>
+                    <p className="text-sm text-gray-600">
+                      Be the first to know about new courses
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => handleNotificationUpdate('newCourses', !notifications.newCourses)}
+                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors flex-shrink-0 ${
+                      notifications.newCourses ? 'bg-purple-600' : 'bg-gray-200'
+                    }`}
+                  >
+                    <span
+                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                        notifications.newCourses ? 'translate-x-6' : 'translate-x-1'
+                      }`}
+                    />
+                  </button>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
+                  <div className="flex-1">
+                    <h3 className="font-medium text-gray-900">Certificate Earned Alerts</h3>
+                    <p className="text-sm text-gray-600">
+                      Get notified when you complete a course and your certificate is available.
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => handleNotificationUpdate('certificateEarnedAlerts', !notifications.certificateEarnedAlerts)}
+                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors flex-shrink-0 ${
+                      notifications.certificateEarnedAlerts ? 'bg-purple-600' : 'bg-gray-200'
+                    }`}
+                  >
+                    <span
+                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                        notifications.certificateEarnedAlerts ? 'translate-x-6' : 'translate-x-1'
+                      }`}
+                    />
+                  </button>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
+                  <div className="flex-1">
+                    <h3 className="font-medium text-gray-900">Achievements</h3>
+                    <p className="text-sm text-gray-600">
+                      Celebrate your progress and achievements
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => handleNotificationUpdate('achievements', !notifications.achievements)}
+                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors flex-shrink-0 ${
+                      notifications.achievements ? 'bg-purple-600' : 'bg-gray-200'
+                    }`}
+                  >
+                    <span
+                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                        notifications.achievements ? 'translate-x-6' : 'translate-x-1'
+                      }`}
+                    />
+                  </button>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
+                  <div className="flex-1">
+                    <h3 className="font-medium text-gray-900">Reminders</h3>
+                    <p className="text-sm text-gray-600">
+                      Helpful reminders to continue your learning
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => handleNotificationUpdate('reminders', !notifications.reminders)}
+                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors flex-shrink-0 ${
+                      notifications.reminders ? 'bg-purple-600' : 'bg-gray-200'
+                    }`}
+                  >
+                    <span
+                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                        notifications.reminders ? 'translate-x-6' : 'translate-x-1'
+                      }`}
+                    />
+                  </button>
+                </div>
               </div>
             </div>
           )}
 
           {/* Privacy Tab */}
           {activeTab === 'privacy' && (
-            <div className="card p-6">
+            <div className="card p-4 sm:p-6">
               <div className="mb-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-2">Privacy Settings</h2>
-                <p className="text-gray-600">Control your privacy and data sharing preferences</p>
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">Privacy Settings</h2>
+                <p className="text-sm sm:text-base text-gray-600">Control your privacy and data sharing preferences</p>
               </div>
 
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Profile Visibility
-                  </label>
-                  <select
-                    value={privacy.profileVisibility}
-                    onChange={(e) => handlePrivacyUpdate('profileVisibility', e.target.value)}
-                    className="input-field"
-                  >
-                    <option value="public">Public</option>
-                    <option value="friends">Friends Only</option>
-                    <option value="private">Private</option>
-                  </select>
-                  <p className="text-sm text-gray-500 mt-1">
-                    Control who can see your profile information
-                  </p>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Activity Visibility
-                  </label>
-                  <select
-                    value={privacy.activityVisibility}
-                    onChange={(e) => handlePrivacyUpdate('activityVisibility', e.target.value)}
-                    className="input-field"
-                  >
-                    <option value="public">Public</option>
-                    <option value="friends">Friends Only</option>
-                    <option value="private">Private</option>
-                  </select>
-                  <p className="text-sm text-gray-500 mt-1">
-                    Control who can see your course progress and activity
-                  </p>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="font-medium text-gray-900">Allow Messages</h3>
-                    <p className="text-sm text-gray-600">
-                      Let other users send you messages
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => handlePrivacyUpdate('allowMessages', !privacy.allowMessages)}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                      privacy.allowMessages ? 'bg-primary-600' : 'bg-gray-200'
-                    }`}
-                  >
-                    <span
-                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                        privacy.allowMessages ? 'translate-x-6' : 'translate-x-1'
-                      }`}
-                    />
-                  </button>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div>
+              <div className="space-y-4 sm:space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
+                  <div className="flex-1">
                     <h3 className="font-medium text-gray-900">Allow Notifications</h3>
                     <p className="text-sm text-gray-600">
                       Receive browser notifications for important updates
@@ -510,8 +542,8 @@ const SettingsPage: React.FC = () => {
                   </div>
                   <button
                     onClick={() => handlePrivacyUpdate('allowNotifications', !privacy.allowNotifications)}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                      privacy.allowNotifications ? 'bg-primary-600' : 'bg-gray-200'
+                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors flex-shrink-0 ${
+                      privacy.allowNotifications ? 'bg-purple-600' : 'bg-gray-200'
                     }`}
                   >
                     <span
@@ -521,11 +553,33 @@ const SettingsPage: React.FC = () => {
                     />
                   </button>
                 </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
+                  <div className="flex-1">
+                    <h3 className="font-medium text-gray-900">Allow Messages</h3>
+                    <p className="text-sm text-gray-600">
+                      Let other users send you messages
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => handlePrivacyUpdate('allowMessages', !privacy.allowMessages)}
+                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors flex-shrink-0 ${
+                      privacy.allowMessages ? 'bg-purple-600' : 'bg-gray-200'
+                    }`}
+                  >
+                    <span
+                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                        privacy.allowMessages ? 'translate-x-6' : 'translate-x-1'
+                      }`}
+                    />
+                  </button>
+                </div>
               </div>
             </div>
           )}
         </div>
       </div>
+    </div>
     </div>
   );
 };

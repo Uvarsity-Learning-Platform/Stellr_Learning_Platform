@@ -23,28 +23,32 @@ const DashboardPage: React.FC = () => {
         </div>
 
         {/* Welcome Section with Gradient Background */}
-        <div className="relative bg-gradient-to-r from-blue-400 via-purple-500 to-green-400 rounded-2xl p-6 sm:p-8 text-white overflow-hidden">
-          {/* Image positioned on the right */}
-          <img 
-            className="absolute sm:top-10 top-28 right-4 sm:right-8 w-24 sm:w-40 md:w-48 lg:w-80 h-24 sm:h-40 md:h-48 lg:h-88 object-contain z-20" 
-            src={graduationHatImage} 
-            alt="Graduation Hat" 
-          />
+        <div className="relative">
+          <div className="bg-gradient-to-r from-blue-400 via-purple-500 to-green-400 rounded-2xl p-6 sm:p-8 text-white overflow-hidden">
+            {/* Decorative elements - adjusted for mobile */}
+            <div className="hidden sm:block absolute top-4 right-8 w-32 h-32 bg-white/10 rounded-full"></div>
+            <div className="hidden sm:block absolute bottom-4 right-16 w-20 h-20 bg-white/20 rounded-full"></div>
+            <div className="hidden sm:block absolute top-1/2 right-4 w-24 h-16 bg-yellow-400/30 rounded-lg transform rotate-12"></div>
+            
+            <div className="relative z-10">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-3">Welcome Back, Stellr</h2>
+              <p className="text-white/90 mb-6 max-w-lg text-sm sm:text-base">
+                Keep your learning journey going. Watch just one step
+                closer to your goals.
+              </p>
+              <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium transition-colors text-sm sm:text-base">
+                Explore New Courses
+              </button>
+            </div>
+          </div>
           
-          {/* Decorative elements - adjusted for mobile */}
-          <div className="hidden sm:block absolute top-4 right-8 w-32 h-32 bg-white/10 rounded-full"></div>
-          <div className="hidden sm:block absolute bottom-4 right-16 w-20 h-20 bg-white/20 rounded-full"></div>
-          <div className="hidden sm:block absolute top-1/2 right-4 w-24 h-16 bg-yellow-400/30 rounded-lg transform rotate-12"></div>
-          
-          <div className="relative z-10">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-3">Welcome Back, Stellr</h2>
-            <p className="text-white/90 mb-6 max-w-lg text-sm sm:text-base">
-              Keep your learning journey going. Watch just one step
-              closer to your goals.
-            </p>
-            <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium transition-colors text-sm sm:text-base">
-              Explore New Courses
-            </button>
+          {/* Graduation Hat Image */}
+          <div className="absolute top-0 right-4 z-30 mb-20 sm:mb-24">
+            <img 
+              className="w-24 sm:w-32 md:w-40 lg:w-[442px] h-24 sm:h-32 md:h-40 lg:h-[448px] object-contain" 
+              src={graduationHatImage} 
+              alt="Graduation Hat" 
+            />
           </div>
         </div>
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { BookOpen, Award, Clock, TrendingUp, Plus, ArrowRight, Palette, Code, Smartphone, Video, Shirt, BarChart3 } from 'lucide-react';
 import { useAuthStore } from '@/store/authStore';
-import graduationHatImage from '../../assets/graduation-hat.png';
+import booksImage from '../../assets/books.png';
 import UXimage from '../../assets/UX.png'; 
 import CSSimage from '../../assets/CSS.png';
 import webDevImage from '../../assets/WebDev.png';
@@ -47,8 +47,8 @@ const DashboardPage: React.FC = () => {
           <div className="absolute top-[110px] lg:top-[-88px] right-2 z-30 mb-20 sm:mb-24">
             <img 
               className="w-24 sm:w-32 md:w-40 lg:w-[442px] h-24 sm:h-32 md:h-40 lg:h-[448px] object-contain" 
-              src={graduationHatImage} 
-              alt="Graduation Hat" 
+              src={booksImage} 
+              alt="Books" 
             />
           </div>
         </div>

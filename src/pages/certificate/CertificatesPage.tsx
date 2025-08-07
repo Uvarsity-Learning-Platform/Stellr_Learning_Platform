@@ -65,7 +65,7 @@ const CertificatesPage: React.FC = () => {
               alt="No certificates found"
               className="w-44 h-44 mb-6"
             />
-            <h2 className="text-2xl font-bold font-['Roboto'] text-gray-900 mb-2">No Certificates found</h2>
+            <h2 className="text-2xl font-bold font-['roboto'] text-gray-900 mb-2">No Certificates found</h2>
             <p className="text-gray-500 text-base mb-2">
               You haven't earned any certificates yet. Complete a course to unlock one.
             </p>

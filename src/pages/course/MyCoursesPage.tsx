@@ -355,7 +355,7 @@ const MyCoursesPage: React.FC = () => {
         alt="No courses found"
         className="w-44 h-44 mb-6"
       />
-      <h2 className="text-2xl font-bold font-['Poppins'] text-gray-900 mb-2">No Courses found</h2>
+      <h2 className="text-2xl font-bold font-poppins text-gray-900 mb-2">No Courses found</h2>
       <p className="text-gray-500 text-base mb-2">Try adjusting your search or filter criteria.</p>
     </div>
   )}

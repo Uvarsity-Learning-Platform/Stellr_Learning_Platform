@@ -43,7 +43,8 @@ const DashboardPage: React.FC = () => {
           </div>
           
           {/* Graduation Hat Image */}
-          <div className="absolute top-0 right-4 z-30 mb-20 sm:mb-24">
+          
+          <div className="absolute top-[110px] lg:top-[-88px] right-2 z-30 mb-20 sm:mb-24">
             <img 
               className="w-24 sm:w-32 md:w-40 lg:w-[442px] h-24 sm:h-32 md:h-40 lg:h-[448px] object-contain" 
               src={graduationHatImage} 

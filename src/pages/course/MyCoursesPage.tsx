@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, X, SlidersHorizontal } from 'lucide-react';
+import { toast } from 'react-hot-toast';
 import { CourseService } from '@/services/courseService';
 import type { Course } from '@/types';
 
@@ -26,8 +27,13 @@ const MyCoursesPage: React.FC = () => {
       try {
         const response = await CourseService.getEnrolledCourses();
         setCourses(response.data);
-      } catch {
-        setError('Failed to load your courses.');
+        toast.success('Courses loaded successfully!');
+      } catch (error) {
+        console.error('Error fetching enrolled courses:', error);
+        const errorMessage = 'Failed to load your courses. Please check your connection and try again.';
+        setError(errorMessage);
+        toast.error(errorMessage);
+        setCourses([]);
       } finally {
         setIsLoading(false);
       }
@@ -356,7 +362,17 @@ const MyCoursesPage: React.FC = () => {
         className="w-44 h-44 mb-6"
       />
       <h2 className="text-2xl font-bold font-['Poppins'] text-gray-900 mb-2">No Courses found</h2>
+      <div className="w-44 h-44 mb-6 bg-gray-200 rounded-lg flex items-center justify-center">
+        <span className="text-gray-500 text-sm">No Courses</span>
+      </div>
+      <h2 className="text-2xl font-bold font-poppins text-gray-900 mb-2">No Courses found</h2>
       <p className="text-gray-500 text-base mb-2">Try adjusting your search or filter criteria.</p>
+      <Link 
+        to="/app/courses" 
+        className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors font-medium"
+      >
+        Browse All Courses
+      </Link>
     </div>
   )}
 </div>

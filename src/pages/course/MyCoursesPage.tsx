@@ -4,6 +4,7 @@ import { Search, X, SlidersHorizontal } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { CourseService } from '@/services/courseService';
 import type { Course } from '@/types';
+import noCoursesImg from '@/assets/no_courses.png';
 
 
 const categories = ['All', 'Web Development', 'Digital Marketing', 'Brand Experience Design', 'User Experience Design (UX)', 'Motion Design', 'Merch Design'];
@@ -25,6 +26,9 @@ const MyCoursesPage: React.FC = () => {
       setIsLoading(true);
       setError(null);
       try {
+        // Add 2-second delay to show placeholders
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
         const response = await CourseService.getEnrolledCourses();
         setCourses(response.data);
         toast.success('Courses loaded successfully!');
@@ -343,8 +347,8 @@ const MyCoursesPage: React.FC = () => {
           )}
 
 <div className="mt-8">
-  {(isLoading || error || courses.length === 0) ? (
-    // Show placeholders if loading, error, or backend returns no data
+  {isLoading || error ? (
+    // Show placeholders if loading or error
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {Array.from({ length: 4 }).map((_, index) => renderPlaceholderCard(index))}
     </div>
@@ -357,14 +361,10 @@ const MyCoursesPage: React.FC = () => {
     // Show "No Courses found" only if user filtered/search and no results
     <div className="flex flex-col items-center justify-center py-20">
       <img
-        src={require('@/assets/no-courses.png')}
+        src={noCoursesImg}
         alt="No courses found"
         className="w-44 h-44 mb-6"
       />
-      <h2 className="text-2xl font-bold font-['Poppins'] text-gray-900 mb-2">No Courses found</h2>
-      <div className="w-44 h-44 mb-6 bg-gray-200 rounded-lg flex items-center justify-center">
-        <span className="text-gray-500 text-sm">No Courses</span>
-      </div>
       <h2 className="text-2xl font-bold font-poppins text-gray-900 mb-2">No Courses found</h2>
       <p className="text-gray-500 text-base mb-2">Try adjusting your search or filter criteria.</p>
       <Link 

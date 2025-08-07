@@ -336,20 +336,30 @@ const MyCoursesPage: React.FC = () => {
             </div>
           )}
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
-            {isLoading || error ? (
-              Array.from({ length: 9 }).map((_, index) => renderPlaceholderCard(index))
-            ) : currentCourses.length > 0 ? (
-              currentCourses.map(course => renderCourseCard(course))
-            ) : (
-              <div className="col-span-full text-center py-12">
-                <div className="max-w-md mx-auto">
-                  <p className="text-gray-500 text-lg mb-2">No courses found</p>
-                  <p className="text-gray-400 text-sm">Try adjusting your filters or search terms</p>
-                </div>
-              </div>
-            )}
-          </div>
+<div className="mt-8">
+  {isLoading || error ? (
+    // Show placeholders if loading or error
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {Array.from({ length: 4 }).map((_, index) => renderPlaceholderCard(index))}
+    </div>
+  ) : currentCourses.length > 0 ? (
+    // Show actual courses if available
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      {currentCourses.map(course => renderCourseCard(course))}
+    </div>
+  ) : (
+    // Show "No Courses found" only if user filtered/search and no results
+    <div className="flex flex-col items-center justify-center py-20">
+      <img
+        src={noCoursesImg}
+        alt="No courses found"
+        className="w-44 h-44 mb-6"
+      />
+      <h2 className="text-2xl font-bold font-poppins text-gray-900 mb-2">No Courses found</h2>
+      <p className="text-gray-500 text-base mb-2">Try adjusting your search or filter criteria.</p>
+    </div>
+  )}
+</div>
 
           {/* Pagination */}
           {!isLoading && filteredCourses.length > 0 && totalPages > 1 && (

@@ -4,6 +4,7 @@ import {
   Home, 
   BookOpen, 
   UserCheck,
+  Award,
   Settings,
   LogOut,
   X,
@@ -17,6 +18,7 @@ const Sidebar = forwardRef<HTMLDivElement, { isOpen: boolean; onClose: () => voi
     { name: 'Dashboard', href: '/app/dashboard', icon: Home },
     { name: 'Courses', href: '/app/courses', icon: BookOpen },
     { name: 'My Courses', href: '/app/my-courses', icon: UserCheck }, // Now links to MyCoursesPage
+    { name: 'Certificates', href: '/app/certificates', icon: Award },
   ];
 
   const secondaryLinks = [

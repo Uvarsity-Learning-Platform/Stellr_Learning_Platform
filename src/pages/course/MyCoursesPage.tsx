@@ -351,7 +351,7 @@ const MyCoursesPage: React.FC = () => {
     // Show "No Courses found" only if user filtered/search and no results
     <div className="flex flex-col items-center justify-center py-20">
       <img
-        src={require('@/assets/no-courses.png')}
+        src={noCoursesImg}
         alt="No courses found"
         className="w-44 h-44 mb-6"
       />

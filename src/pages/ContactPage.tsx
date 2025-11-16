@@ -32,15 +32,15 @@ const ContactPage: React.FC = () => {
       <Header />
 
       {/* Hero Section with Background Image */}
-      <section className="relative h-[500px] px-4 flex items-center justify-center text-white overflow-hidden">
+      <section className="relative h-[600px] px-4 flex items-center justify-center text-white overflow-hidden">
         <div
           className="absolute inset-0 w-full h-full"
         >
           <img
             src="src/assets/contact.png"
             alt="Contact background"
-            className="w-full h-56 left-[160px] top-[32px] relative object-cover"
-            style={{ width: '100%', height: 'auto', minHeight: 300, maxHeight: 500 }}
+            className="w-full h-full left-[10px] top-[0] object-cover"
+            style={{ width: '100%', height: '90%', minHeight: 300, maxHeight: 500 }}
           />
           <div className="absolute inset-0 bg-black/40"></div>
         </div>

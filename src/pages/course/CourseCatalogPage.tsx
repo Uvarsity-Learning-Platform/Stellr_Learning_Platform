@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, X,  SlidersHorizontal } from 'lucide-react';
+import { Search, X, SlidersHorizontal } from 'lucide-react';
 import { CourseService } from '@/services/courseService';
 import type { Course } from '@/types';
 
@@ -90,8 +90,8 @@ const CourseCatalogPage: React.FC = () => {
   };
 
   const formatPrice = (price?: number) => {
-    if (!price) return 'Free';
-    return `$${price.toFixed(2)}`;
+    if (price === undefined || price === 0) return 'GHS 0.00';
+    return `GHS ${price.toFixed(2)}`;
   };
 
   const renderCourseCard = (course: Course) => {
@@ -99,44 +99,68 @@ const CourseCatalogPage: React.FC = () => {
     const thumbnail = course.thumbnail || course.thumbnailUrl || '/api/placeholder/400/300';
     const instructorName = typeof course.instructor === 'string' ? course.instructor : course.instructor?.name || 'Unknown';
     const instructorAvatar = typeof course.instructor === 'object' ? course.instructor.avatar : '/api/placeholder/40/40';
-    const price = (course as { price?: number }).price || 0;
+    const price = (course as { price?: number }).price ?? 50;
     const duration = course.duration || course.totalDuration || 0;
+    const lessonsCount = (course as any).lessonsCount ?? 20;
+    const weeks = (course as any).weeks ?? 8;
 
     return (
-      <div key={course.id} className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-        <img
-          src={thumbnail}
-          alt={course.title + ' thumbnail'}
-          className="w-full h-40 sm:h-48 object-cover object-center bg-gray-200"
-        />
-        <div className="p-3 sm:p-4">
+      <div key={course.id} className="bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-150">
+        <div className="relative">
+          <img
+            src={thumbnail}
+            alt={course.title + ' thumbnail'}
+            className="w-full h-44 sm:h-48 object-cover object-center bg-gray-200"
+          />
+          {/* green pill in top-left */}
+          <div className="absolute left-3 top-3 inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full text-xs font-semibold shadow-sm">
+            <span className="inline-block w-2 h-2 bg-emerald-600 rounded-full"></span>
+            <span>{weeks} weeks</span>
+          </div>
+        </div>
+
+        <div className="p-4 sm:p-5">
           <div className="flex items-center gap-2 mb-2 flex-wrap">
             <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(difficulty)}`}>
               {difficulty}
             </span>
             <span className="text-xs text-gray-500 truncate">{course.category}</span>
           </div>
-          <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 line-clamp-2">{course.title}</h3>
-          <p className="text-gray-600 text-sm mb-3 sm:mb-4 line-clamp-2">{course.description}</p>
-          <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 flex-wrap">
-            <img
-              src={instructorAvatar}
-              alt={instructorName + ' avatar'}
-              className="w-6 h-6 sm:w-8 sm:h-8 rounded-full object-cover border border-gray-300 flex-shrink-0"
-            />
-            <span className="text-xs sm:text-sm text-gray-700 font-medium truncate">{instructorName}</span>
-            <span className="text-xs text-gray-500 flex-shrink-0">{formatDuration(duration)}</span>
-          </div>
-          <div className="flex items-center justify-between">
-            <div className="text-lg sm:text-xl font-bold text-purple-600">
-              {formatPrice(price)}
+
+          <h3 className="text-sm sm:text-base font-semibold text-gray-900 mb-1 line-clamp-2">{course.title}</h3>
+
+          <p className="text-gray-500 text-xs mb-3 line-clamp-2">{course.description}</p>
+
+          <div className="flex items-center justify-between gap-3 mb-4">
+            <div className="flex items-center gap-3">
+              <img
+                src={instructorAvatar}
+                alt={instructorName + ' avatar'}
+                className="w-7 h-7 rounded-full object-cover border border-gray-200"
+              />
+              <div>
+                <div className="text-xs font-medium text-gray-700 truncate">{instructorName}</div>
+                <div className="text-xs text-gray-400">{lessonsCount} lessons • {formatDuration(duration)}</div>
+              </div>
             </div>
-            <Link 
-              to={`/app/courses/${course.id}`} 
+
+            <div className="text-right">
+              <div className="text-sm font-bold text-purple-600">{formatPrice(price)}</div>
+              <div className="text-xs text-gray-400">per course</div>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <Link
+              to={`/app/courses/${course.id}`}
               className="text-xs sm:text-sm text-purple-600 font-medium hover:underline px-2 py-1 rounded transition-colors hover:bg-purple-50"
             >
               View Course
             </Link>
+
+            <button className="text-xs sm:text-sm bg-white border border-gray-200 text-purple-600 px-3 py-1 rounded-lg hover:bg-gray-50 transition-colors">
+              Enroll Now
+            </button>
           </div>
         </div>
       </div>
@@ -144,9 +168,9 @@ const CourseCatalogPage: React.FC = () => {
   };
 
   const renderPlaceholderCard = (index: number) => (
-    <div key={index} className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm">
-      <div className="w-full h-40 sm:h-48 bg-gray-200 animate-pulse"></div>
-      <div className="p-3 sm:p-4">
+    <div key={index} className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+      <div className="w-full h-44 sm:h-48 bg-gray-200 animate-pulse"></div>
+      <div className="p-4 sm:p-5">
         <div className="flex items-center gap-2 mb-2">
           <div className="bg-gray-200 h-5 sm:h-6 w-16 rounded-full animate-pulse"></div>
           <div className="bg-gray-200 h-3 sm:h-4 w-20 rounded animate-pulse"></div>
@@ -168,147 +192,57 @@ const CourseCatalogPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Search and Filters */}
-      <section className="py-4 sm:py-6 lg:py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Mobile Filter Toggle */}
-          <div className="flex items-center justify-between mb-4 sm:hidden">
-            <h2 className="text-lg font-semibold text-gray-900">Courses</h2>
-            <button
-              onClick={() => setShowMobileFilters(!showMobileFilters)}
-              className="flex items-center gap-2 px-3 py-2 bg-gray-200 rounded-lg text-gray-700"
-            >
+      {/* Header */}
+      <div className="bg-gray-50 border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-semibold text-gray-900">Course Catalog</h1>
+            <p className="text-sm text-gray-500 mt-1">Explore an array of courses and start your journey now</p>
+          </div>
+
+          <div className="hidden sm:flex items-center gap-3">
+            <div className="relative w-80">
+              <input
+                type="text"
+                placeholder="Search Certificate.."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-4 pr-10 py-3 rounded-full bg-gray-100 border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 placeholder-gray-500 text-sm"
+              />
+              <Search className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+            </div>
+            <button className="hidden sm:inline-flex items-center gap-2 px-3 py-2 bg-white border border-gray-200 rounded-lg shadow-sm">
               <SlidersHorizontal size={16} />
               Filters
             </button>
           </div>
+        </div>
+      </div>
 
-          {/* Desktop Filters */}
-          <div className="hidden sm:block">
-            <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
-              <div className="flex flex-col lg:flex-row gap-4">
-                {/* Sort Dropdown */}
-                <div className="flex-shrink-0">
-                  <select
-                    value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value)}
-                    className="w-full lg:w-auto px-3 py-2 bg-gray-100 text-gray-900 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                  >
-                    {sortOptions.map((option) => (
-                      <option key={option} value={option}>{option}</option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Search Bar */}
-                <div className="relative flex-1 max-w-md">
-                  <input
-                    type="text"
-                    placeholder="Search courses..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pr-10 pl-4 py-2 bg-gray-100 text-gray-900 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent placeholder-gray-500"
-                  />
-                  <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-                </div>
-              </div>
-
-              {/* Category Filters */}
-              <div className="mt-4">
-                <div className="flex flex-wrap gap-2">
-                  {categories.map((category) => (
-                    <button
-                      key={category}
-                      onClick={() => setSelectedCategory(category)}
-                      className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
-                        selectedCategory === category
-                          ? 'bg-purple-600 text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                      }`}
-                    >
-                      {category}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
+      {/* Filters & chips */}
+      <section className="py-4 sm:py-6 lg:py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-3 overflow-x-auto pb-2">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => { setSelectedCategory(category); setCurrentPage(1); }}
+                className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                  selectedCategory === category
+                    ? 'bg-purple-600 text-white shadow'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
           </div>
-
-          {/* Mobile Filters Panel */}
-          {showMobileFilters && (
-            <div className="sm:hidden bg-white rounded-lg shadow-lg mb-4 border border-gray-200">
-              <div className="p-4">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-gray-900">Filters</h3>
-                  <button
-                    onClick={() => setShowMobileFilters(false)}
-                    className="text-gray-500 hover:text-gray-700"
-                  >
-                    <X size={20} />
-                  </button>
-                </div>
-
-                {/* Mobile Sort */}
-                <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Sort by</label>
-                  <select
-                    value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value)}
-                    className="w-full px-3 py-2 bg-gray-100 text-gray-900 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"
-                  >
-                    {sortOptions.map((option) => (
-                      <option key={option} value={option}>{option}</option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Mobile Search */}
-                <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Search</label>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      placeholder="Search courses..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="w-full pr-10 pl-4 py-2 bg-gray-100 text-gray-900 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 placeholder-gray-500"
-                    />
-                    <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-                  </div>
-                </div>
-
-                {/* Mobile Categories */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
-                  <div className="flex flex-wrap gap-2">
-                    {categories.map((category) => (
-                      <button
-                        key={category}
-                        onClick={() => {
-                          setSelectedCategory(category);
-                          setShowMobileFilters(false);
-                        }}
-                        className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
-                          selectedCategory === category
-                            ? 'bg-purple-600 text-white'
-                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                        }`}
-                      >
-                        {category}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </section>
 
       {/* Courses Grid */}
-      <section className="py-4 sm:py-6 lg:py-8 bg-white">
+      <section className="py-4 sm:py-6 lg:py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Results Count */}
           {!isLoading && (
             <div className="mb-4 sm:mb-6">
               <p className="text-sm text-gray-600">
@@ -320,7 +254,7 @@ const CourseCatalogPage: React.FC = () => {
             </div>
           )}
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-6">
             {isLoading || error ? (
               Array.from({ length: 9 }).map((_, index) => renderPlaceholderCard(index))
             ) : currentCourses.length > 0 ? (
@@ -337,37 +271,16 @@ const CourseCatalogPage: React.FC = () => {
 
           {/* Pagination */}
           {!isLoading && filteredCourses.length > 0 && totalPages > 1 && (
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
-              {/* Mobile Pagination */}
-              <div className="flex items-center gap-2 sm:hidden">
-                <button
-                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                  disabled={currentPage === 1}
-                  className="px-3 py-2 bg-gray-200 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300 transition-colors text-sm"
-                >
-                  Previous
-                </button>
-                <span className="px-3 py-2 text-sm text-gray-600">
-                  {currentPage} of {totalPages}
-                </span>
-                <button
-                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                  disabled={currentPage === totalPages}
-                  className="px-3 py-2 bg-gray-200 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300 transition-colors text-sm"
-                >
-                  Next
-                </button>
-              </div>
+            <div className="flex items-center justify-center gap-3">
+              <button
+                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className="px-4 py-2 bg-gray-200 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300 transition-colors"
+              >
+                Previous
+              </button>
 
-              {/* Desktop Pagination */}
-              <div className="hidden sm:flex items-center gap-2">
-                <button
-                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                  disabled={currentPage === 1}
-                  className="px-4 py-2 bg-gray-200 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300 transition-colors"
-                >
-                  Previous
-                </button>
+              <div className="flex items-center gap-2">
                 {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
                   let pageNum;
                   if (totalPages <= 5) {
@@ -384,7 +297,7 @@ const CourseCatalogPage: React.FC = () => {
                     <button
                       key={pageNum}
                       onClick={() => setCurrentPage(pageNum)}
-                      className={`px-4 py-2 rounded-lg transition-colors ${
+                      className={`px-4 py-2 rounded-lg transition-colors text-sm ${
                         currentPage === pageNum 
                           ? 'bg-purple-600 text-white' 
                           : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
@@ -394,14 +307,15 @@ const CourseCatalogPage: React.FC = () => {
                     </button>
                   );
                 })}
-                <button
-                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                  disabled={currentPage === totalPages}
-                  className="px-4 py-2 bg-gray-200 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300 transition-colors"
-                >
-                  Next
-                </button>
               </div>
+
+              <button
+                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 bg-gray-200 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300 transition-colors"
+              >
+                Next
+              </button>
             </div>
           )}
         </div>

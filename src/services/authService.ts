@@ -1,38 +1,14 @@
-import { apiClient } from './apiClient';
+import apiClient from './apiClient';
 import type { ApiResponse, User, LoginCredentials, RegisterData, OTPVerification } from '@/types';
 
 export class AuthService {
   static async login(credentials: LoginCredentials): Promise<ApiResponse<{ user: User; token: string }>> {
-    // For MVP, we'll simulate API calls with mock data
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const mockUser: User = {
-          id: '1',
-          email: credentials.emailOrPhone.includes('@') ? credentials.emailOrPhone : undefined,
-          phone: credentials.emailOrPhone.includes('@') ? undefined : credentials.emailOrPhone,
-          firstName: 'John',
-          lastName: 'Doe',
-          isOnboarded: true,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-        };
-
-        resolve({
-          success: true,
-          data: {
-            user: mockUser,
-            token: 'mock-jwt-token-' + Date.now(),
-          },
-        });
-      }, 1000);
-    });
-
-    // Uncomment when backend is ready:
-    // return apiClient.post<ApiResponse<{ user: User; token: string }>>('/login', credentials);
+    const resp = await apiClient.post<ApiResponse<{ user: User; token: string }>>('/api/auth/login', credentials);
+    return resp.data;
   }
 
   static async register(data: RegisterData): Promise<ApiResponse<{ user: User; token: string }>> {
-    // Mock implementation
+    // Mock implementation (keep while backend isn't ready)
     return new Promise((resolve) => {
       setTimeout(() => {
         const mockUser: User = {
@@ -56,8 +32,9 @@ export class AuthService {
       }, 1000);
     });
 
-    // Uncomment when backend is ready:
-    // return apiClient.post<ApiResponse<{ user: User; token: string }>>('/register', data);
+    // When backend is available, use the real endpoint and return resp.data:
+    // const resp = await apiClient.post<ApiResponse<{ user: User; token: string }>>('/register', data);
+    // return resp.data;
   }
 
   static async sendOTP(phone: string): Promise<ApiResponse<{ sent: boolean }>> {
@@ -73,8 +50,9 @@ export class AuthService {
       }, 1000);
     });
 
-    // Uncomment when backend is ready:
-    // return apiClient.post<ApiResponse<{ sent: boolean }>>('/auth/send-otp', { phone });
+    // When backend is available:
+    // const resp = await apiClient.post<ApiResponse<{ sent: boolean }>>('/auth/send-otp', { phone });
+    // return resp.data;
   }
 
   static async verifyOTP(data: OTPVerification): Promise<ApiResponse<{ user: User; token: string }>> {
@@ -110,24 +88,28 @@ export class AuthService {
       }, 1000);
     });
 
-    // Uncomment when backend is ready:
-    // return apiClient.post<ApiResponse<{ user: User; token: string }>>('/auth/verify-otp', data);
+    // When backend is available:
+    // const resp = await apiClient.post<ApiResponse<{ user: User; token: string }>>('/auth/verify-otp', data);
+    // return resp.data;
   }
 
   static async refreshToken(): Promise<ApiResponse<{ token: string }>> {
-    return apiClient.post<ApiResponse<{ token: string }>>('/auth/refresh');
+    const resp = await apiClient.post<ApiResponse<{ token: string }>>('/auth/refresh');
+    return resp.data;
   }
 
   static async logout(): Promise<ApiResponse<{ success: boolean }>> {
-    return apiClient.post<ApiResponse<{ success: boolean }>>('/auth/logout');
+    const resp = await apiClient.post<ApiResponse<{ success: boolean }>>('/auth/logout');
+    return resp.data;
   }
 
   static async updateProfile(data: Partial<User>): Promise<ApiResponse<User>> {
-    return apiClient.patch<ApiResponse<User>>('/auth/profile', data);
+    const resp = await apiClient.patch<ApiResponse<User>>('/auth/profile', data);
+    return resp.data;
   }
 
   static async completeOnboarding(): Promise<ApiResponse<User>> {
-    // Mock implementation
+    // Mock implementation (while backend isn't ready)
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({
@@ -145,7 +127,8 @@ export class AuthService {
       }, 500);
     });
 
-    // Uncomment when backend is ready:
-    // return apiClient.patch<ApiResponse<User>>('/auth/complete-onboarding');
+    // When backend is available:
+    // const resp = await apiClient.patch<ApiResponse<User>>('/auth/complete-onboarding');
+    // return resp.data;
   }
 }

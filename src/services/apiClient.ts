@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = (import.meta.env.VITE_API_BASE_URL as string) || 'https://uvarsity-backend-steller.onrender.com';
+const baseURL = ((import.meta as unknown) as { env?: { VITE_API_BASE_URL?: string } }).env?.VITE_API_BASE_URL || 'https://uvarsity-backend-steller.onrender.com';
 
 const apiClient = axios.create({
   baseURL,

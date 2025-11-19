@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, X, SlidersHorizontal } from 'lucide-react';
-import { CourseService } from '@/services/courseService';
-import type { Course } from '@/types';
+import { CourseService } from '../../services/courseService'
+import type { Course } from '../../types/course';
 
 
 const categories = ['All', 'Web Development', 'Digital Marketing', 'Brand Experience Design', 'User Experience Design (UX)', 'Motion Design', 'Merch Design'];

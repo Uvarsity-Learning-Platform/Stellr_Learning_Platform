@@ -3,8 +3,10 @@
   "compilerOptions": {
     "outDir": "./out-tsc/app",
     "types": []
-    // removed "ignoreDeprecations" which caused TS5103
   },
+  "files": [
+    "src/main.tsx"
+  ],
   "include": [
     "src/**/*.d.ts"
   ]

@@ -1,5 +1,5 @@
 import apiClient from './apiClient';
-import type { ApiResponse, User, LoginCredentials, RegisterData, OTPVerification } from '@/types';
+import type { ApiResponse, User, LoginCredentials, RegisterData, OTPVerification } from '../types';
 
 export class AuthService {
   static async login(credentials: LoginCredentials): Promise<ApiResponse<{ user: User; token: string }>> {
